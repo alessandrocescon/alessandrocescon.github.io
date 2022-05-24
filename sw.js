@@ -4,6 +4,8 @@ const filesToCache = [
   '/',
   '/index.html',
   '/icon.png',
+  '/data/data.json',
+
 ];
 
 //install the sw
