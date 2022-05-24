@@ -12,14 +12,6 @@
 		value: "#00f"
 	},
 	{
-		color: "cyan",
-		value: "#0ff"
-	},
-	{
-		color: "magenta",
-		value: "#f0f"
-	},
-	{
 		color: "yellow",
 		value: "#ff0"
 	},
