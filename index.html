@@ -13,40 +13,11 @@
   <link rel="apple-touch-icon" href="icon512.png">
   <meta name="msapplication-TileImage" content="icon512.png">
   <meta name="msapplication-TileColor" content="#c60000">
+  <script src="/js/app.js" defer></script>
 </head>
 
 <body>
   <h1>Hi Everyone 1!</h1>
-  <script>
-    /*window.addEventListener('load', async () => {
-      if ('serviceWorker' in navigator) {
-        try {
-          const registration = await navigator.serviceWorker.register('/sw.js');
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          const notificationPermission = await Notification.requestPermission();
-          if (notificationPermission !== 'granted') {
-            console.log('Notification permission not granted');
-          } else {
-            const title = 'Test Notification';
-            const options = {
-              body: 'Do you like this ?',
-              icon: 'icon72.png',
-              vibrate: [200, 100, 200, 100, 200, 100, 400],
-              tag: 'request',
-              actions: [
-                { action: 'yes', title: 'Yes', icon: 'icon72.png' },
-                { action: 'no', title: 'No', icon: 'icon96.png' }
-              ]
-            };
-            const res = await registration.showNotification(title, options);
-            console.log(res);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    });*/
-  </script>
 </body>
 
 </html>
