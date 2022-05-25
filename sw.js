@@ -12,7 +12,8 @@ const filesToCache = [
   '/css/pure-min.css',
   '/css/style.css',
   '/data/data.json',
-  '/js/app.js'
+  '/js/app.js',
+  '/js/classes.js'
 ];
 
 //install the sw
