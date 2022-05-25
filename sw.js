@@ -1,11 +1,18 @@
-const dataCacheName = 'pwa-test-data';
-const cacheName = 'pwa-test';
+const dataCacheName = 'visaspadata';
+const cacheName = 'visaspa';
 const filesToCache = [
   '/',
   '/index.html',
-  '/icon.png',
+  '/favicon.ico',
+  'icon72.png',
+  'icon96.png',
+  'icon128.png',
+  'icon256.png',
+  'icon512.png',
+  '/css/pure-min.css',
+  '/css/style.css',
   '/data/data.json',
-
+  '/js/app.js'
 ];
 
 //install the sw
