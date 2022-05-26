@@ -1,102 +1,102 @@
 class Ticket {
   
   constructor(reqdate,reqref,odsnum,odsdate,ownerid) {
-    this.reqdate = reqdate;
-    this.reqref = reqref;
-    this.odsnum = odsnum;
-    this.odsdate = odsdate;
-    this.ownerid = ownerid;
+    this._reqdate = reqdate;
+    this._reqref = reqref;
+    this._odsnum = odsnum;
+    this._odsdate = odsdate;
+    this._ownerid = ownerid;
     //
-    this.equip=[];
+    this._equip=[];
   }
   set reqdate(val){
-    this.reqdate = val;
+    this._reqdate = val;
   }
   get reqdate(){
-    return this.reqdate;
+    return this._reqdate;
   }
   set reqref(val){
-    this.reqref = val;
+    this._reqref = val;
   }
   get reqref(){
-    return this.reqref;
+    return this._reqref;
   }
   set odsnum(val){
-    this.odsnum = val;
+    this._odsnum = val;
   }
   get odsnum(){
-    return this.odsnum;
+    return this._odsnum;
   }
   set odsdate(val){
-    this.odsdate = val;
+    this._odsdate = val;
   }
   get odsdate(){
-    return this.odsdate;
+    return this._odsdate;
   }
   set ownerid(val){
-    this.ownerid = val;
+    this._ownerid = val;
   }
   get ownerid(){
-    return this.ownerid;
+    return this._ownerid;
   }
   set address(val){
-    this.address = val;
+    this._address = val;
   }
   get address(){
-    return this.address;
+    return this._address;
   }
   set refer(val){
-    this.refer = val;
+    this._refer = val;
   }
   get refer(){
-    return this.refer;
+    return this._refer;
   }
   set reason(val){
-    this.reason = val;
+    this._reason = val;
   }
   get reason(){
-    return this.reason;
+    return this._reason;
   }
   addequi(equi) {
-    this.equip.push(equi);
+    this._equip.push(equi);
   }
 
 }
 class Equipment {
   
   constructor(model,serial) {
-    this.model = model;
-    this.serial = serial;
+    this._model = model;
+    this._serial = serial;
   }
   set power(val){
-    this.power = val;
+    this._power = val;
   }
   get power(){
-    return this.power;
+    return this._power;
   }
   set hours(val){
-    this.hours = val;
+    this._hours = val;
   }
   get hours(){
-    return this.hours;
+    return this._hours;
   }
   set hoursdate(val){
-    this.hoursdate = val;
+    this._hoursdate = val;
   }
   get hoursdate(){
-    return this.hoursdate;
+    return this._hoursdate;
   }
   set hoursmaint(val){
-    this.hoursmaint = val;
+    this._hoursmaint = val;
   }
   get hoursmaint(){
-    return this.hoursmaint;
+    return this._hoursmaint;
   }
   set hoursmaintdate(val){
-    this.hoursmaintdate = val;
+    this._hoursmaintdate = val;
   }
   get hoursmaintdate(){
-    return this.hoursmaintdate;
+    return this._hoursmaintdate;
   } 
 
 }
