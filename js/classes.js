@@ -11,8 +11,8 @@ class Ticket {
     this._works=[];
     this._materials=[];
     this._notes=[];
-    this._tecsign[];
-    this._clisign[];
+    this._tecsign=[];
+    this._clisign=[];
   }
   set reqdate(val){
     this._reqdate = val;
@@ -201,6 +201,12 @@ class Notes {
   }
   get text(){
     return this._text;
+  }
+  set type(val){
+    this._type = val;
+  }
+  get type(){
+    return this._type;
   }
 }
 
