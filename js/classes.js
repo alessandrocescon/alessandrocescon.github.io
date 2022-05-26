@@ -9,6 +9,7 @@ class Ticket {
     //
     this._equip=[];
     this._works=[];
+    this._materials=[];
   }
   set reqdate(val){
     this._reqdate = val;
@@ -63,6 +64,9 @@ class Ticket {
   }
   addwork(work) {
     this._works.push(work);
+  }
+  addmaterial(material) {
+    this._materials.push(material);
   }
 }
 class Equipment {
@@ -146,13 +150,38 @@ class Work {
 
 }
 
+class Material {
+  
+  constructor() {
+  }
+  set qty(val){
+    this._qty = val;
+  }
+  get qty(){
+    return this._qty;
+  }
+  set cod(val){
+    this._cod = val;
+  }
+  get cod(){
+    return this._cod;
+  }
+  set desc(val){
+    this._desc = val;
+  }
+  get desc(){
+    return this._desc;
+  }
 
+}
 
 var ticket= new Ticket('26-05-2022','alessandro cescon','123456','25-05-2022','001');
 var eqi = new Equipment('GEN_SET','999999');
 ticket.addequi(eqi);
 var wor = new Work();
 ticket.addwork(wor);
+var mat = new Material();
+ticket.addmaterial(mat);
 
 console.log(ticket);
 //ticket.adsnum = '9999999999';
