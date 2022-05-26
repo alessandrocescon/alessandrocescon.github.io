@@ -10,6 +10,7 @@ const filesToCache = [
   'icon256.png',
   'icon512.png',
   '/css/pure-min.css',
+  '/css/grids-responsive-min.css',
   '/css/style.css',
   '/data/data.json',
   '/js/app.js',
