@@ -10,6 +10,9 @@ class Ticket {
     this._equip=[];
     this._works=[];
     this._materials=[];
+    this._notes=[];
+    this._tecsign[];
+    this._clisign[];
   }
   set reqdate(val){
     this._reqdate = val;
@@ -68,9 +71,23 @@ class Ticket {
   addmaterial(material) {
     this._materials.push(material);
   }
+  addnote(note) {
+    this._notes.push(note);
+  }
+  set enddate(val){
+    this._enddate = val;
+  }
+  get enddate(){
+    return this._enddate;
+  }
+  addtecsign(tecsign) {
+    this._tecsign.push(tecsign);
+  }
+  addclisign(clisign) {
+    this._clisign.push(clisign);
+  }  
 }
 class Equipment {
-  
   constructor(model,serial) {
     this._model = model;
     this._serial = serial;
@@ -117,10 +134,8 @@ class Equipment {
   get hoursmaintdate(){
     return this._hoursmaintdate;
   } 
-
 }
 class Work {
-  
   constructor() {
   }
   set workdate(val){
@@ -147,11 +162,9 @@ class Work {
   get travelkm(){
     return this._travelkm;
   }
-
 }
 
 class Material {
-  
   constructor() {
   }
   set qty(val){
@@ -172,7 +185,40 @@ class Material {
   get desc(){
     return this._desc;
   }
+}
 
+class Notes {
+  constructor() {
+  }
+  set date(val){
+    this._date = val;
+  }
+  get date(){
+    return this._date;
+  }
+  set text(val){
+    this._text = val;
+  }
+  get text(){
+    return this._text;
+  }
+}
+
+class Signature {
+  constructor() {
+  }
+  set name(val){
+    this._name = name;
+  }
+  get name(){
+    return this._name;
+  }
+  set signature(val){
+    this._signature = val;
+  }
+  get signature(){
+    return this._signature;
+  }
 }
 
 var ticket= new Ticket('26-05-2022','alessandro cescon','123456','25-05-2022','001');
@@ -182,6 +228,14 @@ var wor = new Work();
 ticket.addwork(wor);
 var mat = new Material();
 ticket.addmaterial(mat);
+var not = new Note();
+ticket.addnote(not);
+var tsi = new Signature();
+ticket.addtecsign(tsi);
+var csi = new Signature();
+ticket.addclisign(csi);
+
+
 
 console.log(ticket);
 //ticket.adsnum = '9999999999';
