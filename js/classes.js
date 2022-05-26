@@ -187,7 +187,7 @@ class Material {
   }
 }
 
-class Notes {
+class Note {
   constructor() {
   }
   set date(val){
