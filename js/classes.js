@@ -8,6 +8,7 @@ class Ticket {
     this._ownerid = ownerid;
     //
     this._equip=[];
+    this._works=[];
   }
   set reqdate(val){
     this._reqdate = val;
@@ -60,13 +61,27 @@ class Ticket {
   addequi(equi) {
     this._equip.push(equi);
   }
-
+  addwork(work) {
+    this._works.push(work);
+  }
 }
 class Equipment {
   
   constructor(model,serial) {
     this._model = model;
     this._serial = serial;
+  }
+  set model(val){
+    this._model = val;
+  }
+  get model(){
+    return this._model;
+  }
+  set serial(val){
+    this._serial = val;
+  }
+  get serial(){
+    return this._serial;
   }
   set power(val){
     this._power = val;
@@ -100,9 +115,44 @@ class Equipment {
   } 
 
 }
+class Work {
+  
+  constructor() {
+  }
+  set workdate(val){
+    this._workdate = val;
+  }
+  get workdate(){
+    return this._workdate;
+  }
+  set travelhours(val){
+    this._travelhours = val;
+  }
+  get travelhours(){
+    return this._travelhours;
+  }
+  set workhours(val){
+    this._workhours = val;
+  }
+  get workhours(){
+    return this._workhours;
+  }
+  set travelkm(val){
+    this._travelkm = val;
+  }
+  get travelkm(){
+    return this._travelkm;
+  }
+
+}
+
+
 
 var ticket= new Ticket('26-05-2022','alessandro cescon','123456','25-05-2022','001');
 var eqi = new Equipment('GEN_SET','999999');
 ticket.addequi(eqi);
+var wor = new Work();
+ticket.addwork(wor);
+
 console.log(ticket);
 //ticket.adsnum = '9999999999';
