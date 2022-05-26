@@ -1,4 +1,4 @@
-document.addEventListener('load', function() {
+window.addEventListener('load', function() {
     alert("Ready!");
 	var ticket= new Ticket('26-05-2022','alessandro cescon','123456','25-05-2022','001');
 	var eqi = new Equipment('GEN_SET','999999');
