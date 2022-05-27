@@ -7,7 +7,7 @@ class App {
     this._content = '<div class="pure-u-1 content"></div>';
     this._footer = '<div class="pure-u-1 footer">Footer</div>';
     this._endlayout='</div>';
-    this._loginform = '<div class="pure-u-1 content">LOGIN FORM!</div>';
+    this._loginform = '<form class="pure-form pure-form-stacked"><fieldset><legend>Login Form</legend><label for="email">Email</label><input type="email" id="email" placeholder="Email" /><span class="pure-form-message">This is a required field.</span><label for="password">Password</label><input type="password" id="password" placeholder="Password" /><button type="submit" class="pure-button pure-button-primary">Sign in</button></fieldset></form>';
   }
   readSessionCookie() {
   	 var cookies = document.cookie.split(';');
@@ -19,6 +19,10 @@ class App {
   }
   setSessionCookie() {
   	 
+  }
+  renderStart() {
+    this._content="START VIEW";
+    this.updateInterface();
   }
   renderLoginForm() {
   	this._content=this._loginform;
