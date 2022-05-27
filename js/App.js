@@ -20,7 +20,7 @@ class App {
   }
   renderLoginForm() {
   	this._content=this._loginform;
-    updateInterface();
+    this.updateInterface();
   }
   updateInterface() {
   	 this._view=this._header+this._sidebar+this._content+this._footer;
