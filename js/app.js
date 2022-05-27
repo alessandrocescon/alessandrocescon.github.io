@@ -1,16 +1,9 @@
 window.addEventListener('load', function() {
-   identify();
+   this.service = new App();
+   this.service.readSessionCookie();
+   init();
 }, false);
-function identify() {
-   var cookies = document.cookie.split(';');
-   for (var i = 0 ; i < cookies.length; i++) {
-         console.log(cookies[i]);
-    }
-}
-function verifycookie() {
 
+function init() {
+  console.log(this.service.session);
 }
-function startlogin() {
-
-}
-

@@ -226,3 +226,31 @@ class Signature {
     return this._signature;
   }
 }
+
+class App {
+  constructor() {
+  }
+  readSessionCookie() {
+  	 var cookies = document.cookie.split(';');
+     for (var i = 0 ; i < cookies.length; i++) {
+        if(cookies[i].startsWith("SSESS")) {
+        	this._session = cookies[i];
+        }
+    }
+  }
+  setSessionCookie() {
+  	 
+  }
+  set session(val){
+    this._session = session;
+  }
+  get session(){
+    return this._session;
+  }  
+  set ticket(val){
+    this._ticket = ticket;
+  }
+  get ticket(){
+    return this._ticket;
+  }  
+}
