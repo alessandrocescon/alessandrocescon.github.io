@@ -8,8 +8,9 @@ function init() {
   if(this.app.session){
      var ssess=this.app.session.split("=");
      if(ssess.length == 2) {
-         console.log("NOME "+ssess[0]);
-         console.log("VALORE "+ssess[1]);
+         if(ssess[0].startsWith("SSESS")) {
+            this.app.renderStart();
+         }
      }
      else {
         this.app.renderLoginForm();
