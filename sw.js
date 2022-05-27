@@ -13,8 +13,14 @@ const filesToCache = [
   '/css/grids-responsive-min.css',
   '/css/style.css',
   '/data/data.json',
-  '/js/app.js',
-  '/js/classes.js'
+  '/js/App.js',
+  '/js/Equipment.js',
+  '/js/Init.js',
+  '/js/Material.js',
+  '/js/Note.js',
+  '/js/Signature.js',
+  '/js/Ticket.js',
+  '/js/Work.js'
 ];
 
 //install the sw
