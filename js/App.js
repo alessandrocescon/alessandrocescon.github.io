@@ -7,7 +7,7 @@ class App {
     this._content = '<div class="pure-u-1 content"></div>';
     this._footer = '<div class="pure-u-1 footer"><div class="footerassest">Footer</div></div>';
     this._endlayout='</div>';
-    this._loginform = '<form class="pure-form pure-form-stacked"><fieldset><legend>Login Form</legend><label for="email">Email</label><input type="email" id="email" placeholder="Email" /><span class="pure-form-message">This is a required field.</span><label for="password">Password</label><input type="password" id="password" placeholder="Password" /><button type="submit" class="pure-button pure-button-primary">Sign in</button></fieldset></form>';
+    this._loginform = '<form class="pure-form pure-form-stacked"><fieldset><legend>Login Form</legend><label for="email">Email</label><input type="email" id="email" placeholder="Email" /><span class="pure-form-message">This is a required field.</span><label for="password">Password</label><input type="password" id="password" placeholder="Password" /><button type="submit" class="pure-button pure-button-primary" id="signin">Sign in</button></fieldset></form>';
   }
   readSessionCookie() {
   	 var cookies = document.cookie.split(';');
@@ -27,6 +27,15 @@ class App {
   renderLoginForm() {
   	this._content=this._loginform;
     this.updateInterface();
+    this.registerLoginFormListener();
+  }
+  registerLoginFormListener() {
+    if(document.getElementById('signin')) {
+       document.getElementById('signin').addEventListener('click',this.login);
+    }
+  }
+  login() {
+    alert('Login');
   }
   updateInterface() {
   	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content"><div class="contentassest">'+this._content+'</div></div></div>'+this._footer+this._endlayout;
