@@ -1,13 +1,13 @@
 class App {
   constructor() {
     //SETUP TEMPLATES
-    this.startlayout='<div id="layout"><a href="#menu" id="menuLink" class="menu-link"><span></span></a>';
-    this.sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Visa S.p.A.</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#list" class="pure-menu-link">Lista</a></li><li class="pure-menu-item"><a href="#nuovo" class="pure-menu-link">Nuovo</a></li><li class="pure-menu-item"><a href="#aggiorna" class="pure-menu-link">Aggiorna</a></li></ul></div></div>';
-    this.header = '<div class="banner">ODS Manager 1.0</div>';
-    this.content = '<div class="content"></div>';
-    this.footer = '<div class="pure-u-1 footer l-box">Footer</div>';
-    this.endlayout='</div>';
-    this.loginform = '<div class="l-content">LOGIN FORM!</div>';
+    this._startlayout='<div id="layout"><a href="#menu" id="menuLink" class="menu-link"><span></span></a>';
+    this._sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Visa S.p.A.</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#list" class="pure-menu-link">Lista</a></li><li class="pure-menu-item"><a href="#nuovo" class="pure-menu-link">Nuovo</a></li><li class="pure-menu-item"><a href="#aggiorna" class="pure-menu-link">Aggiorna</a></li></ul></div></div>';
+    this._header = '<div class="banner">ODS Manager 1.0</div>';
+    this._content = '<div class="content"></div>';
+    this._footer = '<div class="pure-u-1 footer l-box">Footer</div>';
+    this._endlayout='</div>';
+    this._loginform = '<div class="l-content">LOGIN FORM!</div>';
   }
   readSessionCookie() {
   	 var cookies = document.cookie.split(';');
