@@ -13,6 +13,7 @@ const filesToCache = [
   '/css/grids-responsive-min.css',
   '/css/style.css',
   '/data/data.json',
+  '/js/ui.js',
   '/js/App.js',
   '/js/Equipment.js',
   '/js/Init.js',
