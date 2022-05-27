@@ -29,7 +29,7 @@ class App {
     this.updateInterface();
   }
   updateInterface() {
-  	 this._view=this._startlayout+this._sidebar+'<div id="main">'+this._header+this._content+'</div>'+this._footer+this._endlayout;
+  	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content">'+this._content+'</div></div>'+this._footer+this._endlayout;
      this.render();
   }
   render() {
