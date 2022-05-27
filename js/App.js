@@ -2,8 +2,8 @@ class App {
   constructor() {
     //SETUP TEMPLATES
     this.startlayout='<div id="layout"><a href="#menu" id="menuLink" class="menu-link"><span></span></a>';
-    this.sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Company</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#home" class="pure-menu-link">Home</a></li><li class="pure-menu-item"><a href="#about" class="pure-menu-link">About</a></li><li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="#" class="pure-menu-link">Services</a></li><li class="pure-menu-item"><a href="#contact" class="pure-menu-link">Contact</a></li></ul></div></div>';
-    this.header = '<div class="banner"><h1 class="banner-head">Simple Pricing.<br>Try before you buy.</h1></div>';
+    this.sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Visa S.p.A.</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#list" class="pure-menu-link">Lista</a></li><li class="pure-menu-item"><a href="#nuovo" class="pure-menu-link">Nuovo</a></li><li class="pure-menu-item"><a href="#aggiorna" class="pure-menu-link">Aggiorna</a></li></ul></div></div>';
+    this.header = '<div class="banner">ODS Manager 1.0</div>';
     this.content = '<div class="l-content"></div>';
     this.footer = '<div class="footer l-box"><p><a href="#">Try now</a> for 14 days. No credit card required. Header image courtesy of <a href="http://unsplash.com/">Unsplash</a>.</p></div>';
     this.endlayout='</div>';
