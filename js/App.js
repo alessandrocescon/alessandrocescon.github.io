@@ -38,7 +38,23 @@ class App {
     if(event) {
       event.preventDefault();
     }
-    alert(document.getElementById('user').value+"-"+document.getElementById('password').value);
+    var formData = new FormData();
+    formData.append("name", document.getElementById('user').value);
+    formData.append("pass", document.getElementById('password').value);
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open('POST', "https://webauth.visa.it/user/login?_format=json", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+      if (this.readyState == 4 && this.status == 200) {
+
+      }
+      else {
+      }
+    }
+    xhr.onerror = function () {
+    };
+    xhr.send(formData);
   }
   updateInterface() {
   	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content"><div class="contentassest">'+this._content+'</div></div></div>'+this._footer+this._endlayout;
