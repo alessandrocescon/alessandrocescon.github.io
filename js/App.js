@@ -3,9 +3,9 @@ class App {
     //SETUP TEMPLATES
     this._startlayout='<div id="layout"><a href="#menu" id="menuLink" class="menu-link"><span></span></a>';
     this._sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Visa S.p.A.</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#list" class="pure-menu-link">Lista</a></li><li class="pure-menu-item"><a href="#nuovo" class="pure-menu-link">Nuovo</a></li><li class="pure-menu-item"><a href="#aggiorna" class="pure-menu-link">Aggiorna</a></li></ul></div></div>';
-    this._header = '<div class="pure-u-1 banner">ODS Manager 1.0</div>';
+    this._header = '<div class="pure-u-1 banner"><div class="bannerassest">ODS Manager 1.0</div></div>';
     this._content = '<div class="pure-u-1 content"></div>';
-    this._footer = '<div class="pure-u-1 footer">Footer</div>';
+    this._footer = '<div class="pure-u-1 footer"><div class="footerassest">Footer</div></div>';
     this._endlayout='</div>';
     this._loginform = '<form class="pure-form pure-form-stacked"><fieldset><legend>Login Form</legend><label for="email">Email</label><input type="email" id="email" placeholder="Email" /><span class="pure-form-message">This is a required field.</span><label for="password">Password</label><input type="password" id="password" placeholder="Password" /><button type="submit" class="pure-button pure-button-primary">Sign in</button></fieldset></form>';
   }
@@ -29,7 +29,7 @@ class App {
     this.updateInterface();
   }
   updateInterface() {
-  	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content">'+this._content+'</div></div>'+this._footer+this._endlayout;
+  	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content"><div class="contentassest">'+this._content+'</div></div></div>'+this._footer+this._endlayout;
      this.render();
   }
   render() {
