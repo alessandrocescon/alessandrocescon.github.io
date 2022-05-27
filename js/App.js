@@ -1,5 +1,11 @@
 class App {
   constructor() {
+    //SETUP TEMPLATES
+    this.sidebar = '<div class="pure-menu pure-menu-horizontal"><a href="#" class="pure-menu-heading">Your Logo</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li><li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Pricing</a></li><li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li></ul></div>';
+    this.header = '<div class="banner"><h1 class="banner-head">Simple Pricing.<br>Try before you buy.</h1></div>';
+    this.content = '<div class="l-content"></div>';
+    this.footer = '<div class="footer l-box"><p><a href="#">Try now</a> for 14 days. No credit card required. Header image courtesy of <a href="http://unsplash.com/">Unsplash</a>.</p></div>';
+    this.loginform = '<div class="l-content">LOGIN FORM!</div>';
   }
   readSessionCookie() {
   	 var cookies = document.cookie.split(';');
@@ -71,10 +77,4 @@ class App {
   get ticket(){
     return this._ticket;
   }  
-  //SETUP TEMPLATES
-  this.sidebar = '<div class="pure-menu pure-menu-horizontal"><a href="#" class="pure-menu-heading">Your Logo</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li><li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Pricing</a></li><li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li></ul></div>';
-  this.header = '<div class="banner"><h1 class="banner-head">Simple Pricing.<br>Try before you buy.</h1></div>';
-  this.content = '<div class="l-content"></div>';
-  this.footer = '<div class="footer l-box"><p><a href="#">Try now</a> for 14 days. No credit card required. Header image courtesy of <a href="http://unsplash.com/">Unsplash</a>.</p></div>';
-  this.loginform = '<div class="l-content">LOGIN FORM!</div>';
 }
