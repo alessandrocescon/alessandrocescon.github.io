@@ -5,5 +5,11 @@ window.addEventListener('load', function() {
 }, false);
 
 function init() {
-  console.log(this.service.session);
+  if(this.service.session){
+     var ssess=this.service.session.split("=");
+     if(ssess.length == 2) {
+         console.log("NOME "+ssess[0]);
+         console.log("VALORE "+ssess[1]);
+     }
+  }
 }
