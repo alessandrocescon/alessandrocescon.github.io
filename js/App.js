@@ -22,6 +22,8 @@ class App {
   }
   renderStart() {
     this._content="START VIEW";
+    var t1=new Ticket();
+    console.log(t1);
     this.updateInterface();
   }
   renderLoginForm() {
@@ -34,6 +36,17 @@ class App {
        document.getElementById('signin').addEventListener('click',this.login);
     }
   }
+  renderServiceForm() {
+    this._content=this._serviceForm;
+    this.updateInterface();
+    this.registerServiceFormListener();
+  }
+  registerServiceFormListener() {
+    if(document.getElementById('save')) {
+       document.getElementById('save').addEventListener('click',this.login);
+    }
+  }
+
   login() {
     if(event) {
       event.preventDefault();
@@ -56,6 +69,7 @@ class App {
     };
     xhr.send(formData);
   }
+
   updateInterface() {
   	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content"><div class="contentassest">'+this._content+'</div></div></div>'+this._footer+this._endlayout;
      this.render();
@@ -99,6 +113,15 @@ class App {
   get loginform(){
     return this._loginform;
   } 
+  set serviceForm(val){
+    this._serviceForm = val;
+  }
+  get serviceForm(){
+    return this._serviceForm;
+  } 
+
+
+
   set content(val){
     this._content = val;
   }
