@@ -23,7 +23,7 @@ class App {
   renderStart() {
     this._content="START VIEW";
     var t1=new Ticket();
-    console.log(t1);
+    console.log(Object.entries(t1));
     this.updateInterface();
   }
   renderLoginForm() {
