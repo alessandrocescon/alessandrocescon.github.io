@@ -1,16 +1,18 @@
 class Signature {
-  constructor() {
+  constructor(name,signature) {
+    this.name = name;
+    this.signature = signature;
   }
-  set name(val){
-    this._name = val;
+  setName(val){
+    this.name = val;
   }
-  get name(){
-    return this._name;
+  getName(){
+    return this.name;
   }
-  set signature(val){
-    this._signature = val;
+  setSignature(val){
+    this.signature = val;
   }
-  get signature(){
-    return this._signature;
+  getSignature(){
+    return this.signature;
   }
 }

@@ -1,48 +1,48 @@
 class Equipment {
   constructor(model,serial) {
-    this._model = model;
-    this._serial = serial;
+    this.model = model;
+    this.serial = serial;
   }
-  set model(val){
-    this._model = val;
+  setModel(val){
+    this.model = val;
   }
-  get model(){
-    return this._model;
+  getModel(){
+    return this.model;
   }
-  set serial(val){
-    this._serial = val;
+  setSerial(val){
+    this.serial = val;
   }
-  get serial(){
-    return this._serial;
+  getSerial(){
+    return this.serial;
   }
-  set power(val){
-    this._power = val;
+  setPower(val){
+    this.power = val;
   }
-  get power(){
-    return this._power;
+  getPower(){
+    return this.power;
   }
-  set hours(val){
-    this._hours = val;
+  setHours(val){
+    this.hours = val;
   }
-  get hours(){
-    return this._hours;
+  getHours(){
+    return this.hours;
   }
-  set hoursdate(val){
-    this._hoursdate = val;
+  setHoursdate(val){
+    this.hoursdate = val;
   }
-  get hoursdate(){
-    return this._hoursdate;
+  getHoursdate(){
+    return this.hoursdate;
   }
-  set hoursmaint(val){
-    this._hoursmaint = val;
+  setHoursmaint(val){
+    this.hoursmaint = val;
   }
-  get hoursmaint(){
-    return this._hoursmaint;
+  getHoursmaint(){
+    return this.hoursmaint;
   }
-  set hoursmaintdate(val){
-    this._hoursmaintdate = val;
+  setHoursmaintdate(val){
+    this.hoursmaintdate = val;
   }
-  get hoursmaintdate(){
-    return this._hoursmaintdate;
+  getHoursmaintdate(){
+    return this.hoursmaintdate;
   } 
 }

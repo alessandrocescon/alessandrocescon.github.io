@@ -1,22 +1,25 @@
 class Note {
-  constructor() {
+  constructor(date, text, type) {
+     this.date=date;
+     this.text=text;
+     this.type=type;
   }
-  set date(val){
-    this._date = val;
+  setDate(val){
+    this.date = val;
   }
-  get date(){
-    return this._date;
+  getDate(){
+    return this.date;
   }
-  set text(val){
-    this._text = val;
+  setText(val){
+    this.text = val;
   }
-  get text(){
-    return this._text;
+  getText(){
+    return this.text;
   }
-  set type(val){
-    this._type = val;
+  setType(val){
+    this.type = val;
   }
-  get type(){
-    return this._type;
+  getType(){
+    return this.type;
   }
 }

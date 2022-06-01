@@ -1,28 +1,32 @@
 class Work {
-  constructor() {
+  constructor(workdate,travelhours,workhours,travelkm) {
+    this.workdate=workdate;
+    this.travelhours=travelhours;
+    this.workhours=workhours;
+    this.travelkm=travelkm;
   }
-  set workdate(val){
-    this._workdate = val;
+  setWorkdate(val){
+    this.workdate = val;
   }
-  get workdate(){
-    return this._workdate;
+  getWorkdate(){
+    return this.workdate;
   }
-  set travelhours(val){
-    this._travelhours = val;
+  setTravelhours(val){
+    this.travelhours = val;
   }
-  get travelhours(){
-    return this._travelhours;
+  getTravelhours(){
+    return this.travelhours;
   }
-  set workhours(val){
-    this._workhours = val;
+  setWorkhours(val){
+    this.workhours = val;
   }
-  get workhours(){
-    return this._workhours;
+  getWorkhours(){
+    return this.workhours;
   }
-  set travelkm(val){
-    this._travelkm = val;
+  setTravelkm(val){
+    this.travelkm = val;
   }
-  get travelkm(){
-    return this._travelkm;
+  getTravelkm(){
+    return this.travelkm;
   }
 }

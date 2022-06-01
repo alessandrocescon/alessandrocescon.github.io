@@ -1,35 +1,53 @@
 class App {
   constructor() {
     //SETUP TEMPLATES
-    this._startlayout='<div id="layout"><a href="#menu" id="menuLink" class="menu-link"><span></span></a>';
-    this._sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Visa S.p.A.</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#list" class="pure-menu-link">List</a></li><li class="pure-menu-item"><a href="#new" class="pure-menu-link">New</a></li><li class="pure-menu-item"><a href="#sync" class="pure-menu-link">Sync</a></li></ul></div></div>';
-    this._header = '<div class="pure-u-1 banner"><div class="bannerassest">ODS Manager 1.0</div></div>';
-    this._content = '<div class="pure-u-1 content"></div>';
-    this._footer = '<div class="pure-u-1 footer"><div class="footerassest">&copy; 2022 Visa S.p.A. IT dept.</div></div>';
-    this._endlayout='</div>';
-    this._loginform = '<form class="pure-form pure-form-stacked"><fieldset><legend>Login Form</legend><label for="user">User Name</label><input type="text" id="user" placeholder="User Name" /><span class="pure-form-message">This is a required field.</span><label for="password">Password</label><input type="password" id="password" placeholder="Password" /><button type="submit" class="pure-button pure-button-primary" id="signin">Sign in</button></fieldset></form>';
+    this.startlayout='<div id="layout"><a href="#menu" id="menuLink" class="menu-link"><span></span></a>';
+    this.sidebar = '<div id="menu"><div class="pure-menu"><a class="pure-menu-heading" href="#company">Visa S.p.A.</a><ul class="pure-menu-list"><li class="pure-menu-item"><a href="#list" class="pure-menu-link">List</a></li><li class="pure-menu-item"><a href="#new" class="pure-menu-link">New</a></li><li class="pure-menu-item"><a href="#sync" class="pure-menu-link">Sync</a></li></ul></div></div>';
+    this.header = '<div class="pure-u-1 banner"><div class="bannerassest">ODS Manager 1.0</div></div>';
+    this.content = '<div class="pure-u-1 content"></div>';
+    this.footer = '<div class="pure-u-1 footer"><div class="footerassest">&copy; 2022 Visa S.p.A. IT dept.</div></div>';
+    this.endlayout='</div>';
+    this.loginform = '<form class="pure-form pure-form-stacked"><fieldset><legend>Login Form</legend><label for="user">User Name</label><input type="text" id="user" placeholder="User Name" /><span class="pure-form-message">This is a required field.</span><label for="password">Password</label><input type="password" id="password" placeholder="Password" /><button type="submit" class="pure-button pure-button-primary" id="signin">Sign in</button></fieldset></form>';
   }
   readSessionCookie() {
   	 var cookies = document.cookie.split(';');
      for (var i = 0 ; i < cookies.length; i++) {
         if(cookies[i].startsWith("SSESS")) {
-        	this._session = cookies[i];
+        	this.session = cookies[i];
         }
     }
   }
   setSessionCookie() {
   	 
   }
+  htmlTicketRender(t1) {
+    var tr =this.ticketRender(t1);
+    var rendered ='<form class="pure-form pure-form-stacked"><fieldset><legend>ODS Form</legend>';
+    for(var i=0;i<tr.length;i++) {
+      var fr= new FormItem(tr[i]);
+      rendered+=fr.getRendered();
+    }
+    rendered+="</fieldset></form>";
+    return rendered;
+  }
   renderStart() {
-    this._content="START VIEW";
-    var t1=new Ticket();
-    console.log(Object.entries(t1));
+    var t1=new Ticket('30-05-2022','acescon','','29-05-2022','2455');
+    t1.reqdate='2022-05-30';
+    var eq1=new Equipment();
+    eq1.model='modello';
+    eq1.serial='12345';
+    t1.addequi(eq1);
+    t1.addequi(eq1);
+    this.content=this.htmlTicketRender(t1);
+
     this.updateInterface();
   }
   renderLoginForm() {
-  	this._content=this._loginform;
+  	this.content=this.loginform;
     this.updateInterface();
     this.registerLoginFormListener();
+    //debug
+    this.renderStart();
   }
   registerLoginFormListener() {
     if(document.getElementById('signin')) {
@@ -37,9 +55,16 @@ class App {
     }
   }
   renderServiceForm() {
-    this._content=this._serviceForm;
+    this.content=this.serviceForm;
     this.updateInterface();
     this.registerServiceFormListener();
+  }
+  renderFieldTemplate() {
+    var fldhtml='';
+
+
+    return fldhtml;
+
   }
   registerServiceFormListener() {
     if(document.getElementById('save')) {
@@ -71,79 +96,95 @@ class App {
   }
 
   updateInterface() {
-  	 this._view=this._startlayout+this._sidebar+'<div class="pure-u-1" id="main">'+this._header+'<div class="pure-u-1 content"><div class="contentassest">'+this._content+'</div></div></div>'+this._footer+this._endlayout;
+  	 this.view=this.startlayout+this.sidebar+'<div class="pure-u-1" id="main">'+this.header+'<div class="pure-u-1 content"><div class="contentassest">'+this.content+'</div></div></div>'+this.footer+this.endlayout;
      this.render();
   }
   render() {
-  	document.getElementById('app').innerHTML = this._view;
+  	document.getElementById('app').innerHTML = this.view;
   }
-  set header(val){
-    this._header = val;
+  ticketRender(t1) {
+    var ticketarray=new Array();
+    for(var obj in Object.entries(t1)) {
+      if(typeof(Object.entries(t1)[obj][1]) == 'object') {
+         for(var objb in Object.entries(t1)[obj][1]) {
+            var constr = Object.entries(t1)[obj][1][objb].constructor.name.toLowerCase();
+            for(var i = 0;i<Object.entries(Object.entries(t1)[obj][1][objb]).length;i++) {
+              ticketarray.push(new Array(constr,Object.entries(Object.entries(t1)[obj][1][objb])[i][0],Object.entries(Object.entries(t1)[obj][1][objb])[i][1]));
+              //console.log(Object.entries(Object.entries(t1)[obj][1][objb])[i]);
+            }
+         }
+      }
+      else {
+        var ccon= t1.constructor.name.toLowerCase();
+        ticketarray.push(new Array(ccon,Object.entries(t1)[obj][0],Object.entries(t1)[obj][1]));
+      }
+    }
+    return ticketarray;
   }
-  get header(){
-    return this._header;
+  setHeader(val){
+    this.header = val;
+  }
+  getHeader(){
+    return this.header;
   } 
-  set footer(val){
-    this._footer = val;
+  setFooter(val){
+    this.footer = val;
   }
-  get footer(){
-    return this._footer;
+  getFooter(){
+    return this.footer;
   } 
-  set sidebar(val){
-    this._sidebar = val;
+  setSidebar(val){
+    this.sidebar = val;
   }
-  get sidebar(){
-    return this._sidebar;
+  getSidebar(){
+    return this.sidebar;
   } 
-  set startlayout(val){
-    this._startlayout = val;
+  setStartlayout(val){
+    this.startlayout = val;
   }
-  get startlayout(){
-    return this._startlayout;
+  getStartlayout(){
+    return this.startlayout;
   } 
-  set endlayout(val){
-    this._endlayout = val;
+  setEndlayout(val){
+    this.endlayout = val;
   }
-  get endlayout(){
-    return this._endlayout;
+  getEndlayout(){
+    return this.endlayout;
   } 
-  set loginform(val){
-    this._loginform = val;
+  setLoginform(val){
+    this.loginform = val;
   }
-  get loginform(){
-    return this._loginform;
+  getLoginform(){
+    return this.loginform;
   } 
-  set serviceForm(val){
-    this._serviceForm = val;
+  setServiceForm(val){
+    this.serviceForm = val;
   }
-  get serviceForm(){
-    return this._serviceForm;
+  getServiceForm(){
+    return this.serviceForm;
   } 
-
-
-
-  set content(val){
-    this._content = val;
+  setContent(val){
+    this.content = val;
   }
-  get content(){
-    return this._content;
+  getContent(){
+    return this.content;
   } 
-  set view(val){
-    this._view = val;
+  setView(val){
+    this.view = val;
   }
-  get view(){
-    return this._view;
+  getView(){
+    return this.view;
   }  
-  set session(val){
-    this._session = val;
+  setSession(val){
+    this.session = val;
   }
-  get session(){
-    return this._session;
+  getSession(){
+    return this.session;
   }  
-  set ticket(val){
-    this._ticket = val;
+  setTicket(val){
+    this.ticket = val;
   }
-  get ticket(){
-    return this._ticket;
+  getTicket(){
+    return this.ticket;
   }  
 }

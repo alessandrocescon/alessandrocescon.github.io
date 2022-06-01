@@ -1,22 +1,25 @@
 class Material {
-  constructor() {
+  constructor(qty, cod, desc) {
+     this.qty=qty;
+     this.cod=cod;
+     this.desc=desc;
   }
-  set qty(val){
-    this._qty = val;
+  setQty(val){
+    this.qty = val;
   }
-  get qty(){
-    return this._qty;
+  getQty(){
+    return this.qty;
   }
-  set cod(val){
-    this._cod = val;
+  setCod(val){
+    this.cod = val;
   }
-  get cod(){
-    return this._cod;
+  getCod(){
+    return this.cod;
   }
-  set desc(val){
-    this._desc = val;
+  setDesc(val){
+    this.desc = val;
   }
-  get desc(){
-    return this._desc;
+  getDesc(){
+    return this.desc;
   }
 }
