@@ -1,8 +1,9 @@
 class FormItem {
   constructor(obj) {
-     this.classname = obj[0];
-     this.fieldname = obj[1];
-     this.value = obj[2];
+     this.position = obj[0];
+     this.classname = obj[1];
+     this.fieldname = obj[2];
+     this.value = obj[3];
      this.rendered='-';
      this.tpl_textfield='<div class="{%class%}"><label for="{%id%}">{%label%}</label><input type="text" id="{%id%}" name="{%id%}" placeholder="{%placeholder%}" value="{%value%}" /><span class="pure-form-message">{%message%}</span></div>';
      this.tpl_textarea='textarea';
@@ -13,6 +14,13 @@ class FormItem {
      this.tpl_map=[];
      this.tpl_map.push(['ticket','reqdate','Data richiesta','Data richiesta','Inserire data richiesta',16,'pure-u-1 pure-u-sm-1-2',this.tpl_datefield]);
      this.tpl_map.push(['ticket','reqref','Richiedente','Dati richiedente','Inserire dati richiedente',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
+     this.tpl_map.push(['equipment','model','Modello','Dati modello','Inserire dati modello',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
+  }
+  setPosition(val){
+    this.position = val;
+  }
+  getPosition(){
+    return this.position;
   }
   setClassname(val){
     this.classname = val;
@@ -42,10 +50,10 @@ class FormItem {
     this.rendered = val;
   }
   getRendered(){
-    var fdet= this.getFieldData(this.classname,this.fieldname);
+    var fdet= this.getFieldData(this.classname,this.fieldname,this.position);
     var finfld='';
     if(fdet && fdet.length == 8) {
-       finfld=fdet[7].replaceAll('{%id%}',this.fieldname);
+       finfld=fdet[7].replaceAll('{%id%}',this.position+"_"+this.fieldname);
        finfld=finfld.replaceAll('{%label%}',fdet[2]);
        finfld=finfld.replaceAll('{%placeholder%}',fdet[3]);
        finfld=finfld.replaceAll('{%value%}',this.value);
@@ -55,7 +63,7 @@ class FormItem {
     this.rendered=finfld;
     return this.rendered;
   }
-  getFieldData(cname,fname){
+  getFieldData(cname,fname,fpos){
      for(var i=0;i<this.tpl_map.length;i++) {
         if(cname == this.tpl_map[i][0] && fname == this.tpl_map[i][1]) {
            return this.tpl_map[i];

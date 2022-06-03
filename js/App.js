@@ -24,8 +24,19 @@ class App {
     var tr =this.ticketRender(t1);
     var rendered ='<form class="pure-form pure-form-stacked"><fieldset><legend>ODS Form</legend>';
     for(var i=0;i<tr.length;i++) {
-      var fr= new FormItem(tr[i]);
-      rendered+=fr.getRendered();
+      if(typeof(tr[i][0]) == 'object') {
+        console.log('inizio oggetto 2 livello');
+        for(var ib=0;ib<tr[i].length;ib++) {
+          var fr= new FormItem(tr[i][ib]);
+          rendered+=fr.getRendered();
+          console.log(tr[i][ib]);
+        }
+        console.log('fine oggetto 2 livello');
+      }
+      else {
+        var fr= new FormItem(tr[i]);
+        rendered+=fr.getRendered();
+      }
     }
     rendered+="</fieldset></form>";
     return rendered;
@@ -38,8 +49,13 @@ class App {
     eq1.serial='12345';
     t1.addequi(eq1);
     t1.addequi(eq1);
+    var wk1 = new Work('30-05-2022','10','20','30');
+    t1.addwork(wk1);
+    var wk2 = new Work('30-06-2022','109','209','309');
+    t1.addwork(wk2);
+    var wk3 = new Work('30-06-2023','103','203','303');
+    t1.addwork(wk3);
     this.content=this.htmlTicketRender(t1);
-
     this.updateInterface();
   }
   renderLoginForm() {
@@ -103,22 +119,33 @@ class App {
   	document.getElementById('app').innerHTML = this.view;
   }
   ticketRender(t1) {
+    //console.log(t1);
+    //var t2 = JSON.parse(JSON.stringify(t1));
+    //console.log(t2);
     var ticketarray=new Array();
+    
     for(var obj in Object.entries(t1)) {
+   
       if(typeof(Object.entries(t1)[obj][1]) == 'object') {
+        var enobj = 0;
+        var arr=new Array();
          for(var objb in Object.entries(t1)[obj][1]) {
             var constr = Object.entries(t1)[obj][1][objb].constructor.name.toLowerCase();
+            var itmd=new Array();
             for(var i = 0;i<Object.entries(Object.entries(t1)[obj][1][objb]).length;i++) {
-              ticketarray.push(new Array(constr,Object.entries(Object.entries(t1)[obj][1][objb])[i][0],Object.entries(Object.entries(t1)[obj][1][objb])[i][1]));
-              //console.log(Object.entries(Object.entries(t1)[obj][1][objb])[i]);
+              itmd[i]=new Array(enobj,constr,Object.entries(Object.entries(t1)[obj][1][objb])[i][0],Object.entries(Object.entries(t1)[obj][1][objb])[i][1]);
             }
+            ticketarray.push(itmd);
+         enobj++;
          }
+         
       }
       else {
         var ccon= t1.constructor.name.toLowerCase();
-        ticketarray.push(new Array(ccon,Object.entries(t1)[obj][0],Object.entries(t1)[obj][1]));
+        ticketarray.push(new Array(0,ccon,Object.entries(t1)[obj][0],Object.entries(t1)[obj][1]));
       }
     }
+    console.log(ticketarray);
     return ticketarray;
   }
   setHeader(val){
