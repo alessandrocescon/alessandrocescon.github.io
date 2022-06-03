@@ -14,7 +14,7 @@ class FormItem {
      this.tpl_map=[];
      this.tpl_map.push(['ticket','reqdate','Data richiesta','Data richiesta','Inserire data richiesta',16,'pure-u-1 pure-u-sm-1-2',this.tpl_datefield]);
      this.tpl_map.push(['ticket','reqref','Richiedente','Dati richiedente','Inserire dati richiedente',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
-     this.tpl_map.push(['equipment','model','Modello','Dati modello','Inserire dati modello',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
+     this.tpl_map.push(['equip','model','Modello','Dati modello','Inserire dati modello',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
   }
   setPosition(val){
     this.position = val;
@@ -53,7 +53,7 @@ class FormItem {
     var fdet= this.getFieldData(this.classname,this.fieldname,this.position);
     var finfld='';
     if(fdet && fdet.length == 8) {
-       finfld=fdet[7].replaceAll('{%id%}',this.position+"_"+this.fieldname);
+       finfld=fdet[7].replaceAll('{%id%}',this.classname+"_"+this.position+"_"+this.fieldname);
        finfld=finfld.replaceAll('{%label%}',fdet[2]);
        finfld=finfld.replaceAll('{%placeholder%}',fdet[3]);
        finfld=finfld.replaceAll('{%value%}',this.value);

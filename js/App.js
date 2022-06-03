@@ -47,8 +47,8 @@ class App {
     var eq1=new Equipment();
     eq1.model='modello';
     eq1.serial='12345';
-    t1.addequi(eq1);
-    t1.addequi(eq1);
+    t1.addequipment(eq1);
+    t1.addequipment(eq1);
     var wk1 = new Work('30-05-2022','10','20','30');
     t1.addwork(wk1);
     var wk2 = new Work('30-06-2022','109','209','309');
@@ -119,7 +119,13 @@ class App {
   	document.getElementById('app').innerHTML = this.view;
   }
   ticketRender(t1) {
-    //console.log(t1);
+    console.log(t1);
+    console.log(t1.works[0]);
+    var ntest = "equipment_0_model";
+    var spl=ntest.split("_");
+    console.log(spl[0]);
+    var nnam=spl[0];
+    console.log(t1['equipment'][0]);
     //var t2 = JSON.parse(JSON.stringify(t1));
     //console.log(t2);
     var ticketarray=new Array();

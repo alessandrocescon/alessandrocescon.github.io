@@ -7,7 +7,7 @@ class Ticket {
     this.odsdate = odsdate;
     this.ownerid = ownerid;
     //liste oggetti
-    this.equip=new Array();
+    this.equipment=new Array();
     this.works=new Array();
     this.materials=new Array();
     this.notes=new Array();
@@ -62,8 +62,8 @@ class Ticket {
   getReason(){
     return this.reason;
   }
-  addequi(equi) {
-    this.equip.push(equi);
+  addequipment(equi) {
+    this.equipment.push(equi);
   }
   addwork(work) {
     this.works.push(work);
