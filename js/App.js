@@ -91,7 +91,7 @@ class App {
     //console.log(data);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    //xhr.withCredentials = true;
+    xhr.withCredentials = true;
     xhr.open('POST', "https://webauth.visa.it/remotelogin", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = function () {
