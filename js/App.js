@@ -87,8 +87,8 @@ class App {
     if(event) {
       event.preventDefault();
     }
-    var data = JSON.stringify({ "name": document.getElementById('user').value, "pass": document.getElementById('password').value });
-    console.log(data);
+    //var data = JSON.stringify({ "name": document.getElementById('user').value, "pass": document.getElementById('password').value });
+    //console.log(data);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.withCredentials = true;
@@ -103,6 +103,7 @@ class App {
     }
     xhr.onerror = function () {
     };
+    var data = '{"name": "'+document.getElementById('user').value+'","pass": "'+document.getElementById('password').value+'"}';
     xhr.send(data);
   }
 
