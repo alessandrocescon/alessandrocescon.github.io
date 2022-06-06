@@ -125,6 +125,7 @@ class App {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = function () {
       if (this.readyState == 4 && this.status == 200) {
+        console.log(this);
 
       }
       else {
