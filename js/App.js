@@ -83,7 +83,9 @@ class App {
     }
   }
 
-  login() {
+
+
+  /*login() {
     if(event) {
       event.preventDefault();
     }
@@ -94,6 +96,7 @@ class App {
     xhr.responseType = 'json';
     xhr.withCredentials = true;
     xhr.open('GET', "https://webauth.visa.it/remotelogin", true);
+    xhr.open('POST', "https://webauth.visa.it/user/login?_format=json", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -105,6 +108,32 @@ class App {
     xhr.onerror = function () {
     };
     xhr.send(formData);
+  }*/
+
+
+
+  login() {
+    if(event) {
+      event.preventDefault();
+    }
+    //var data = JSON.stringify({ "name": document.getElementById('user').value, "pass": document.getElementById('password').value });
+    //console.log(data);
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.withCredentials = true;
+    xhr.open('POST', "https://webauth.visa.it/user/login?_format=json", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+      if (this.readyState == 4 && this.status == 200) {
+
+      }
+      else {
+      }
+    }
+    xhr.onerror = function () {
+    };
+    var data = '{"name": "'+document.getElementById('user').value+'","pass": "'+document.getElementById('password').value+'"}';
+    xhr.send(data);
   }
 
   updateInterface() {
