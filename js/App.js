@@ -88,6 +88,7 @@ class App {
       event.preventDefault();
     }
     var data = JSON.stringify({ "name": document.getElementById('user').value, "pass": document.getElementById('password').value });
+    console.log(data);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.withCredentials = true;
