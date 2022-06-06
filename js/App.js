@@ -87,8 +87,9 @@ class App {
     if(event) {
       event.preventDefault();
     }
-    //var data = JSON.stringify({ "name": document.getElementById('user').value, "pass": document.getElementById('password').value });
-    //console.log(data);
+    var formData = new FormData();
+    formData.append("name", document.getElementById('user').value);
+    formData.append("pass", document.getElementById('password').value);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.withCredentials = true;
@@ -103,8 +104,7 @@ class App {
     }
     xhr.onerror = function () {
     };
-    var data = '{"name": "'+document.getElementById('user').value+'","pass": "'+document.getElementById('password').value+'"}';
-    xhr.send(data);
+    xhr.send(formData);
   }
 
   updateInterface() {
