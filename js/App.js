@@ -91,7 +91,7 @@ class App {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.withCredentials = true;
-    xhr.open('POST', "https://test.webauth.visa.it/user/login?_format=json", true);
+    xhr.open('POST', "https://webauthtest.visa.visa/user/login?_format=json", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = function () {
       if (this.readyState == 4 && this.status == 200) {
