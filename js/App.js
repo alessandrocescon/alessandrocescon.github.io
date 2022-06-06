@@ -92,7 +92,8 @@ class App {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.withCredentials = true;
-    xhr.open('POST', "http://webauthtest.visa.visa/remotelogin", true);
+    //xhr.open('POST', "http://webauthtest.visa.visa/remotelogin", true);
+    xhr.open('GET', "https://alessandrocescon.github.io/data/data.json", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = function () {
       if (this.readyState == 4 && this.status == 200) {
