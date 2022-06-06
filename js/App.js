@@ -25,13 +25,10 @@ class App {
     var rendered ='<form class="pure-form pure-form-stacked"><fieldset><legend>ODS Form</legend>';
     for(var i=0;i<tr.length;i++) {
       if(typeof(tr[i][0]) == 'object') {
-        console.log('inizio oggetto 2 livello');
         for(var ib=0;ib<tr[i].length;ib++) {
           var fr= new FormItem(tr[i][ib]);
           rendered+=fr.getRendered();
-          console.log(tr[i][ib]);
         }
-        console.log('fine oggetto 2 livello');
       }
       else {
         var fr= new FormItem(tr[i]);
@@ -49,11 +46,11 @@ class App {
     eq1.serial='12345';
     t1.addequipment(eq1);
     t1.addequipment(eq1);
-    var wk1 = new Work('30-05-2022','10','20','30');
+    var wk1 = new Work('2022-05-30','10','20','30');
     t1.addwork(wk1);
-    var wk2 = new Work('30-06-2022','109','209','309');
+    var wk2 = new Work('2022-05-30','109','209','309');
     t1.addwork(wk2);
-    var wk3 = new Work('30-06-2023','103','203','303');
+    var wk3 = new Work('2022-05-30','103','203','303');
     t1.addwork(wk3);
     this.content=this.htmlTicketRender(t1);
     this.updateInterface();
@@ -63,7 +60,7 @@ class App {
     this.updateInterface();
     this.registerLoginFormListener();
     //debug
-    this.renderStart();
+    //this.renderStart();
   }
   registerLoginFormListener() {
     if(document.getElementById('signin')) {
@@ -77,8 +74,6 @@ class App {
   }
   renderFieldTemplate() {
     var fldhtml='';
-
-
     return fldhtml;
 
   }
@@ -97,8 +92,9 @@ class App {
     formData.append("pass", document.getElementById('password').value);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
+    xhr.withCredentials = true;
     xhr.open('POST', "https://webauth.visa.it/user/login?_format=json", true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onload = function () {
       if (this.readyState == 4 && this.status == 200) {
 

@@ -14,7 +14,8 @@ class FormItem {
      this.tpl_map=[];
      this.tpl_map.push(['ticket','reqdate','Data richiesta','Data richiesta','Inserire data richiesta',16,'pure-u-1 pure-u-sm-1-2',this.tpl_datefield]);
      this.tpl_map.push(['ticket','reqref','Richiedente','Dati richiedente','Inserire dati richiedente',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
-     this.tpl_map.push(['equip','model','Modello','Dati modello','Inserire dati modello',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
+     this.tpl_map.push(['equipment','model','Modello','Dati modello','Inserire dati modello',64,'pure-u-1 pure-u-sm-1-2',this.tpl_textfield]);
+     this.tpl_map.push(['work','workdate','Data esecuzione','Data esecuzione','Inserire data esecuzione',64,'pure-u-1 pure-u-sm-1-2',this.tpl_datefield]);
   }
   setPosition(val){
     this.position = val;
