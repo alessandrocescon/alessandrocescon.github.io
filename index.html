@@ -276,7 +276,7 @@ function createmenu() {
         if(pages.pages[i].folder != "") {
           folder = "/"+pages.pages[i].folder;
         }
-        menu+="<li><a href='"+folder+"/"+pages.pages[i].url+"' title='"+pages.pages[i].title+"' onclick="loadMe">"+pages.pages[i].menu+"</a></li>";
+        menu+="<li><a href='"+folder+"/"+pages.pages[i].url+"' title='"+pages.pages[i].title+"' onclick='loadMe'>"+pages.pages[i].menu+"</a></li>";
       }
     menu+="</ul>";
     document.getElementById("menu").innerHTML=menu;
@@ -291,7 +291,7 @@ function pop() {
 }
 function loadme() {
   if(event) {
-    eventpreventDefault();
+    event.preventDefault();
   }
   var reqcont = event.target.href;
   var tit= event.target.href.replace(".html", "");
