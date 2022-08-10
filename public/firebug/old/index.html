@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <script type="text/javascript" src="libs/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="libs/d3.js"></script>
+    <script type="text/javascript" src="js/speed.js"></script>
+    <title>Measure car speed and direction</title>
+</head>
+<body>
+<div id="out"></div>
+SPEED km/h: <h1 id='speedkm'>0</h1><br>
+SPEED m/s: <div id='speed'>0</div><br>
+LONG: <div id='long'></div><br>
+LAT: <div id='lat'></div><br>
+ACCUR: <div id='accur'></div><br>
+TIME: <div id='tme'></div><br>
+ALT: <div id='alt'></div><br>
+ALTATT: <div id='altatt'></div><br>
+HEAD: <div id='head'></div><br>
+DIST MT: <div id='dist'></div>
+<script>
+setInterval(geoFindMe, 1000);
+function toRad(data) {
+return data * Math.PI / 180;
+}
+function calculateDistance(lat1, lon1, lat2, lon2) {
+var R = 6371000;
+var dLat = toRad(lat2 - lat1);
+var dLon = toRad(lon2 - lon1);
+var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+var d = R * c;
+return d;
+}
+function calculateSpeed(t1,lat1,lon1,t2,lat2,lon2) {
+var dst = calculateDistance(lat1,lon1,lat2,lon2);
+var speed = dst / ((t2-t1)/1000);
+return speed;
+}
+function geoFindMe() {
+  var output = document.getElementById("out");
+  if (!navigator.geolocation){
+    output.innerHTML = "<p>La geolocalizzazione non è supportata dal tuo browser</p>";
+    return;
+  }
+function success(position) {
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var tme = position.timestamp;
+    var oldlat = 0.00;
+    var oldlong = 0.00;
+    var oldtme = 0;
+    if (typeof localStorage.getItem('lat1') !== 'undefined'){ oldlat = localStorage.getItem('lat1');}
+    if (typeof localStorage.getItem('long1') !== 'undefined'){ oldlong = localStorage.getItem('long1');}
+    if (typeof localStorage.getItem('tme1') !== 'undefined'){ oldtme = localStorage.getItem('tme1');}
+    var dist = calculateDistance(oldlat,oldlong,latitude,longitude);
+    var speed = calculateSpeed(oldtme,oldlat,oldlong,tme,latitude,longitude);
+    localStorage.setItem('lat1', latitude);
+    localStorage.setItem('long1', longitude);
+    localStorage.setItem('tme1', tme);    
+    var date = new Date(position.timestamp);
+    var hours = date.getHours();
+    var minutes = '0' + date.getMinutes();
+    var seconds = '0' + date.getSeconds();
+    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    document.getElementById('long').innerHTML = longitude;
+    document.getElementById('lat').innerHTML= latitude;
+    if(!isNaN(speed) && speed > 1.5) {
+       document.getElementById('speed').innerHTML=speed.toPrecision(3);
+       document.getElementById('speedkm').innerHTML=(speed*3.6).toPrecision(3);
+    }
+    document.getElementById('accur').innerHTML=position.coords.accuracy;
+    document.getElementById('tme').innerHTML=formattedTime;
+    document.getElementById('alt').innerHTML=position.coords.altitude;
+    document.getElementById('altatt').innerHTML=position.coords.altitudeAccuracy;
+    document.getElementById('head').innerHTML=position.coords.heading;
+    document.getElementById('dist').innerHTML=dist;
+  }
+
+  function error() {
+    output.innerHTML = "Impossibile calcolare la tua posizione";
+  }
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+</script>	
+</body>
+</html

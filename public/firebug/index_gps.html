@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo">wait...</p>
+<script>
+
+var x = document.getElementById("demo");
+setInterval(getLocation, 2500);
+function error(err) {
+  x.innerHTML = ("ERROR "+err.code+" "+err.message);
+}
+function deg2rad(degrees)
+{
+  var pi = Math.PI;
+  return degrees * (pi/180);
+}
+function updatePos(position) {
+  localStorage.setItem("oldlat", position.coords.latitude);
+  localStorage.setItem("oldlong", position.coords.longitude);
+  localStorage.setItem("oldtme", position.timestamp);
+}
+function distance(lat1, lon1, lat2, lon2, unit, tme1, tme2) {
+	//if ((lat1 == lat2) && (lon1 == lon2)) {
+		//return ("<h1>no change"+"<br>"+(tme2-tme1));
+	//}
+	//else {
+		//ver1
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+	    var difftme = (tme2-tme1)/1000;
+	    var dstmt = dist*1000;
+	    var speed=dstmt/difftme;
+		//return (dstmt.toFixed(2)+" - "+speed.toFixed(2)+" - "+(speed*3.6).toFixed(1)+" difftimesec="+difftme+" oldlat="+lat1+" newlat="+lat2+" oldlon="+lon1+" newlon="+lon2);
+		//return ("<h1>"+dstmt+" - "+speed+" - "+(speed*3.6)+"</h1>difftimsec="+(tme2-tme1)+" oldlat="+lat1+" newlat="+lat2+" oldlon="+lon1+" newlon="+lon2);
+        //ver2
+        var earthRadius = 6371000; // Radius of the earth in m
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1); 
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = earthRadius * c;
+        //ver3
+        var p = 0.017453292519943295;    //This is  Math.PI / 180
+        var c = Math.cos;
+        var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
+        var R = 6371000; //  Earth distance in m
+        var dist3 = 2 * R * Math.asin(Math.sqrt(a));
+		return ("<h1>(1)"+dstmt.toFixed(1)+"<br>(2)"+d.toFixed(1)+"<br>(3)"+dist3.toFixed(1)+"<br>"+(tme2-tme1));
+	//}
+}
+function getLocation() {
+  if (navigator.geolocation) {
+  	var options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+    };
+    navigator.geolocation.getCurrentPosition(showPosition,error,options);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {	
+  //x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude +
+  "<br>Timestamp UNIX: " + position.timestamp +
+  "<br>Distance mt - speed msec - km_h: " + distance(localStorage.getItem("oldlat"), localStorage.getItem("oldlong"), position.coords.latitude, position.coords.longitude, "K",localStorage.getItem("oldtme"),position.timestamp) + "<br>Link: " +"<a href='https://www.openstreetmap.org/?mlat="+position.coords.latitude+"&mlon="+position.coords.longitude+"' target='_blank'>link</a>"; 
+  x.innerHTML = distance(localStorage.getItem("oldlat"), localStorage.getItem("oldlong"), position.coords.latitude, position.coords.longitude, "K",localStorage.getItem("oldtme"),position.timestamp);
+  updatePos(position);
+}
+</script>
+</body>
+</html>     

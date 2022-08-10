@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/naviboard@4.1.0/dist/naviboard.min.js"></script>
+	<style>
+ .box:focus {
+        text-decoration: none;
+        border: 5px solid red !important;
+    }
+
+    body {
+        margin: 40px;
+    }
+    
+    
+
+    .box {
+        background-color: #e0b4ed;
+        color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        font-size: 150%;
+    }
+
+    .box:nth-child(even) {
+        background-color: #b4caed;
+        color: #000;
+    }
+
+    .wrapper {
+        width: 600px;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(6, 100px);
+        grid-template-rows: 100px 100px 100px;
+        grid-auto-flow: column;
+    }
+	</style>
+</head>
+<body>
+<div class="wrapper" id="mainCtrl">
+        <div class="box navigable" tabindex="0">1</div>
+        <div class="box navigable" tabindex="0">2</div>
+        <div class="box navigable" tabindex="0">3</div>
+        <div class="box navigable" tabindex="0">4</div>
+        <div class="box navigable" tabindex="0">5</div>
+        <div class="box navigable" tabindex="0">6</div>
+        <div class="box navigable" tabindex="0">7</div>
+        <div class="box navigable" tabindex="0">8</div>
+        <div class="box navigable" tabindex="0">9</div>
+        <div class="box navigable" tabindex="0">10</div>
+        <div class="box navigable" tabindex="0">11</div>
+        <div class="box navigable" tabindex="0">12</div>
+    </div>
+
+
+<script>
+	naviBoard.setNavigation("mainCtrl");
+</script>
+</body>
+</html>

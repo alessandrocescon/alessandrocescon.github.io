@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<body>
+<input type="file" id="imgchoose" onchange="loadImage(this)"><br>
+<img id="myImage" /><br>
+<button onclick="getImageData(document.getElementById('myImage'))">Get GCODE</button> 
+<div id="gcode"></div>
+<script>
+function isOdd(num) {return num % 2;}
+var canvas = document.createElement("canvas");
+//var canvas = document.getElementById('canvimage');
+var imageData;
+var thickness = 3;
+var cleansurface=0.1;
+var widthmm=50;
+var heightmm=50;
+var tooldiam=0.5;
+var tooloverlay=0.5;
+var mmstep=tooldiam-(tooldiam*tooloverlay).toFixed(2);
+var wstep= parseInt(widthmm/mmstep);
+var hstep= parseInt(heightmm/mmstep);
+alert("immagine wmm="+widthmm+" hmm="+heightmm+" w="+wstep+" h="+hstep+"  pixels");
+var movespd = 200;
+var workspd = 15;
+var spind = 1000;
+var safez = 5;
+var data="";
+var invert=1;
+var gcode = document.getElementById('gcode');
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        /*img.onload = function(){
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img,0,0,img.width,img.height);
+        }*/
+        img.src = event.target.result;
+    }
+    reader.onload = () => showImage(reader);
+    reader.readAsDataURL(e.target.files[0]);     
+}
+
+document.getElementById('imgchoose').onchange = function (evt) {
+    /*var tgt = evt.target || window.event.srcElement,
+        files = tgt.files;
+    if (FileReader && files && files.length) {
+        var fr = new FileReader();
+        fr.onload = () => showImage(fr);
+        fr.readAsDataURL(files[0]);
+    }*/
+    handleImage(evt);
+}
+
+
+
+
+
+
+
+
+function showImage(fileReader) {
+    var img = document.getElementById("myImage");
+    //img.onload = () => getImageData(img);
+    img.src = fileReader.result;
+}
+function getImageData(img) {
+    //start
+    data += "G21<br>"; 
+    data += "G90<br>";  
+    data += "G1 Z"+safez+" F"+movespd+"<br>";
+    data += "M3 S"+spind+"<br>";
+    var img = document.getElementById("myImage");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    imageData = ctx.getImageData(0, 0, img.width, img.height).data;
+    //alert(imageData.length);
+    /*for (var y = 0; y < img.height; ++y) {
+       for (var x = 0; x < img.width; ++x) {
+          var xc=x;
+          if(isOdd(y) == 1) {
+            xc = (img.width-1) - x;
+          }
+          var index = ((y * img.width)+ xc) * 4;
+          var istart = index;
+          var r = imageData[index];    // red
+          var g = imageData[++index];  // green
+          var b = imageData[++index];  // blue
+          //var a = imageData[++index];  // alpha
+          var gcval = Math.round(0.21*r+0.72*g+0.07*b);
+          var penval = (g*(thickness/255)).toFixed(2);
+             //console.log("x="+(xc*mmstep).toFixed(2)+"y="+(y*mmstep).toFixed(2)+"GCVAL="+gcval+"PENVAL="+penval+"R="+r+"G="+g+"B="+b+"\n");
+             data += "G1 X"+(xc*mmstep).toFixed(2)+" Y"+(y*mmstep).toFixed(2)+" ";
+             data += "Z-"+penval+" F"+workspd+";(R="+r+" G="+g+" B="+b+" INDEX="+istart+"X="+xc+" Y="+y+")<br>";
+             //data += "G1 Z"+safez+" F"+workspd+"<br>";
+
+        }
+    }*/
+    var xp=0;
+    var yp=0;
+    for (var i = 0; i < imageData.length; i += 4) {   
+      if (Number.isInteger((i)/(img.width*4))){
+      	 yp++;
+      	 xp=0;
+      }
+      if (Number.isInteger((i)/(4))){
+         xp++;
+      }
+      var iread=i;
+      var xnew=xp;
+      var xcc=xp;
+      if(isOdd(yp-1) == 1) {
+            //invertire x di iread e x di pixel
+            xnew=img.width-xp+1;
+            xcc=(xnew-1)*4;
+            iread=((yp-1)*img.width*4)+xcc;
+      }    
+      var gcval = (Math.round(0.21*imageData[iread]+0.72*imageData[iread+1]+0.07*imageData[iread+2]));
+      if (invert == 1) {
+      	gcval = 255-gcval;
+      }
+      var penval = (gcval*(thickness/255)).toFixed(2);
+      data += "G1 X"+(xnew*mmstep).toFixed(2)+" Y-"+(yp*mmstep).toFixed(2)+" ";
+      data += "Z-"+(parseFloat(penval)+parseFloat(cleansurface)).toFixed(2)+" F"+workspd+" ;iread="+iread+"R="+imageData[iread]+"G="+imageData[iread+1]+"B="+imageData[iread+2]+"<br>";
+      console.log("x_"+xnew+" y_"+yp+" i_"+iread+" pen_"+penval+"\n");
+    }
+    data += "G1 Z"+safez+" F"+movespd+"<br>"; 
+    data += "G1 X0.00 Y0.00 F"+movespd+"<br>";
+    data += "M5 <br>";
+    data += "M2 <br>";
+    gcode.innerHTML = data;
+    //prende valori in base a step
+       /*for (var ys = 0; ys < hstep; ++ys) {
+          for (var xs = 0; xs < wstep; ++xs) {
+             var posx=parseInt(img.width/wstep*xs);
+             var posy=parseInt(img.height/hstep*ys);
+             var xc=posx;
+             if(isOdd(posy) == 1) {
+                 xc = (img.width-1) - posx;
+          }
+          var index = (posy * img.width + posx) * 4;
+          var r = imageData[index];    // red
+          var g = imageData[++index];  // green
+          var b = imageData[++index];  // blue
+          var a = imageData[++index];  // alpha
+          var gcval = Math.round(0.21*r+0.72*g+0.07*b);
+          var penval = (gcval*(thickness/255)).toFixed(2);
+             console.log("x="+xc+"y="+posy+"GCVAL="+gcval+"PENVAL="+penval+"R="+r+"G="+g+"B="+b+"\n");
+
+          }
+        }*/
+}
+</script>
+</body>
+</html>

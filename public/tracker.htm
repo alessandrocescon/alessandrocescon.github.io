@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index,follow">
+<meta name="google-site-verification" content="kc6wdFmkpA3GkXi2pdfxUh8wpbLxDZrBvbOw0Qhoum0" />
+<head>
+<body>
+<div id="demo">in attesa dei dati GPS...</div>
+<script>
+function getLocation() {
+  var x = document.getElementById("demo");
+  if (navigator.geolocation) {
+  var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+  };
+    navigator.geolocation.watchPosition(calcPosition,showError,options);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function calcPosition(position) {
+  var x = document.getElementById("demo");
+  var timenow = parseInt(new Date().getTime()/1000);
+  if(window.oldla && window.oldlo && window.oldtime) {
+     //calcoli
+     var dist=distance(window.oldla,window.oldlo,position.coords.latitude,position.coords.longitude);
+     var timen = parseInt(timenow) - parseInt(window.oldtime);
+     var spd = speed(dist,timen);
+     //if(isNan(spd)){  
+     //}
+     //else {
+       //to do if speed is ok
+    // }
+     //set new old val
+     window.oldla=position.coords.latitude;
+     window.oldlo=position.coords.longitude;
+     window.oldtime=timenow;
+     //x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Time sec: "+timenow+ "<br>Distance m: "+dist+ "<br>Speed m/s: "+spd;
+     x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude+ "<br>Distance m: "+dist+ "<br>Time sec: "+timenow+ "<br>Speed m/s: "+spd;
+  }
+  else {
+     window.oldla=position.coords.latitude;
+     window.oldlo=position.coords.longitude;
+     window.oldtime=timenow;    
+  }
+}
+function speed(dist, time) {
+  var sped=parseFloat(dist)/parseFloat(time);
+  return sped;
+}
+function distance(lat1, lon1, lat2, lon2) {
+
+      var radlat1 = Math.PI * lat1/180;
+      var radlat2 = Math.PI * lat2/180;
+      var theta = lon1-lon2;
+      var radtheta = Math.PI * theta/180;
+      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180/Math.PI;
+      dist = dist * 60 * 1.1515;
+      dist = dist * 1609.344;
+      return dist;
+}
+function showError(error) {
+  var x = document.getElementById("demo");
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+getLocation();
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <head>
+    <!-- <script type="text/javascript" src="https://alessandrocescon.github.io/firebug/build/firebug-lite-debug.js"></script> -->
+   </head>
+   <body>
+      <div id="demo" style="width:100%;margin:auto;text-align:center;font-size:15vw;background-color:#efefef;line-height:15vw;">0.0</div>
+      <div style="width:100%;margin:auto;text-align:center;font-size:15vw;background-color:#efefef;line-height:15vw;">km/h</div>
+      <div id="time" style="display:none;"></div>
+      <div id="dstnew" style="display:none;"></div>
+      <div style="display:none;"></div>
+      <div id="dsttot" style="width:60%;margin:auto;text-align:center;font-size:2em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">0</div>
+      <div style="width:40%;margin:auto;text-align:center;font-size:1em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">TotDist</div>
+      <div id="maxspd" style="width:60%;margin:auto;text-align:center;font-size:2em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">0</div>
+      <div style="width:40%;margin:auto;text-align:center;font-size:1em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">MaxSpd</div>
+      <div id="tottime" style="width:60%;margin:auto;text-align:center;font-size:2em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">0</div>
+      <div style="width:40%;margin:auto;text-align:center;font-size:1em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">TotTime</div>
+      <div id="spdmed" style="width:60%;margin:auto;text-align:center;font-size:2em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">0</div>
+      <div style="width:40%;margin:auto;text-align:center;font-size:1em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">SpdMed</div>
+      <div id="accur" style="width:60%;margin:auto;text-align:center;font-size:2em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">0</div>
+      <div style="width:40%;margin:auto;text-align:center;font-size:1em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;">Accur</div>
+      <div id="kmldata" style="width:100%;margin:auto;text-align:center;font-size:0.7em;background-color:#efefef;color:#999999;line-height:0.8em;margin-top:10px;float:left;">0</div>
+      <div id="debug" style="width:100%;margin:auto;text-align:center;font-size:1em;background-color:#000000;color:#ffffff;line-height:8vw;margin-top:10px;float:left;"></div>
+      <script>
+         var x = document.getElementById("demo");
+         var tm = document.getElementById("time");
+         var dstnew = document.getElementById("dstnew");
+         var dsttot = document.getElementById("dsttot");
+         var maxspd = document.getElementById("maxspd");
+         var tottime = document.getElementById("tottime");
+         var spdmed = document.getElementById("spdmed");
+         var accur = document.getElementById("accur");
+         var kmllist = document.getElementById("kmldata");
+         var debug = document.getElementById("debug");
+         var oldlat=0;
+         var oldlong=0;
+         var oldtme=0;
+         var ospd1 = 0;
+         var ospd2 = 0;
+         var ospd3 = 0;
+         var strt=0;
+         var starttime;
+         setInterval(getLocation, 2500);
+         function timeConverter(UNIX_timestamp){
+           var a = new Date(UNIX_timestamp);
+           var year = a.getFullYear();
+           var date = a.getDate();
+           var hour = a.getHours();
+           var min = a.getMinutes();
+           var sec = a.getSeconds();
+           var time = date + ' ' + (a.getMonth()+1) + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+           return time;
+         }
+         function error(err) {
+           //x.innerHTML = ("ERROR"+err.code+" "+err.message);
+           console.log("no fix...\n");
+         }
+         function updatePos(position) {
+           oldlat=position.coords.latitude;
+           oldlong=position.coords.longitude;
+           oldtme=position.timestamp;
+         }
+         function distance(lat1, lon1, lat2, lon2, unit, tme1, tme2) {
+                 console.log("lat1 "+lat1+" lat2 "+lat2+"\n");
+                 debug.innerHTML =   "lat1 "+lat1+" lat2 "+lat2+"\n";               
+                 var difftme = (tme2-tme1)/1000;
+                 console.log("difftme "+difftme+"\n");
+                 var p = 0.017453292519943295;
+                 var c = Math.cos;
+                 var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
+                 var R = 6371000;
+                 var dist3 = 2 * R * Math.asin(Math.sqrt(a));
+                 console.log("distance "+dist3+"\n");
+                 var spd3=dist3/difftme;
+                 if (parseInt(dist3 ) > 0 && spd3 > 0) {}
+                 else {}
+                 if (isNaN(spd3) || spd3 == 0) {
+                   return ("0;0");
+                 }
+                 else {
+                   return (parseInt(dist3)+";"+(spd3*3.6));
+                 } 
+         }
+         function getLocation() {
+          
+           if (navigator.geolocation) {
+             var options = {
+             enableHighAccuracy: true,
+             timeout: 3000,
+             maximumAge: 0
+             };
+             navigator.geolocation.getCurrentPosition(showPosition,error,options);
+           } else { 
+             x.innerHTML = "Geolocation is not supported by this browser.";
+           }
+         }
+         function showPosition(position) { 
+           //save start time
+           if(strt == 0) {
+             console.log("partenza "+position.timestamp+" ora "+timeConverter(position.timestamp)+"\n");
+             var stt = position.timestamp;
+             starttime = stt;
+             oldtme = position.timestamp;
+             oldlat = position.coords.latitude;
+             oldlong = position.coords.longitude;
+             strt=1;
+           }
+           var difftime=(position.timestamp-starttime)/1000;
+            console.log("starttime " +timeConverter(starttime)+" difftime sec "+(position.timestamp-oldtme)/1000);
+            var accurac = position.coords.accuracy;
+            var spd = distance(oldlat, oldlong, position.coords.latitude, position.coords.longitude, "K",oldtme,position.timestamp).toString().split(";");
+             console.log("Lat:"+position.coords.latitude+" Lon:"+position.coords.longitude+" Time:"+position.timestamp+" Timeread:"+timeConverter(position.timestamp)+" Accur:"+accurac+" Speed:"+spd[1]+" Dist:"+spd[0]+"\n");
+             
+            debug.innerHTML ="Lat:"+position.coords.latitude+" Lon:"+position.coords.longitude+" Time:"+position.timestamp+" Timeread:"+timeConverter(position.timestamp)+" Accur:"+accurac+" Speed:"+parseFloat(spd[1])+" Difftime:"+difftime+" Dist:"+spd[0]+"\n";             
+             
+             
+             
+         //if (parseFloat(spd[0]) <= 0) {dstnew.innerHTML = parseInt(0);} else {
+              //if(accurac > 30 && parseFloat(spd[1]) > 1.5 && strt > 0) {
+              	
+              	
+                  //var ol = kmllist.innerHTML;
+                  //kmllist.innerHTML = ol+"<br>"+position.coords.latitude+","+position.coords.longitude+",0";
+                  //kmllist.innerHTML = position.coords.latitude+","+position.coords.longitude+",0";
+                  accur.innerHTML = accurac;
+                  ospd1=ospd2;
+                  ospd2=ospd3;
+                  ospd3=spd[1];
+                  var medspeed=0;
+                  if(parseFloat(ospd3) > 0 &&  parseFloat(ospd2) > 0  ) {
+                     medspeed=((ospd3+ospd2)/2).toFixed(1);
+                  }
+                  else if (parseFloat(ospd3) > 0 &&  parseFloat(ospd2) > 0 &&  parseFloat(ospd1) > 0 ) {
+                     medspeed=((parseFloat(ospd3)+parseFloat(ospd2)+parseFloat(ospd1))/3).toFixed(1);
+                  }
+                  else {
+                      medspeed=parseFloat(spd[1]).toString();
+                 }         
+                  ///force
+                  medspeed=parseFloat(spd[1]).toString();
+                  accur.innerHTML = accurac;
+                  dstnew.innerHTML = parseInt(spd[0]);
+                  dsttot.innerHTML = parseInt(dsttot.innerHTML)+parseInt(spd[0]);
+                  tm.innerHTML = timeConverter(position.timestamp);
+                  tottime.innerHTML = parseInt(difftime);
+                  var speedmed = (parseInt(dsttot.innerHTML)/difftime)*3.6;
+                  spdmed.innerHTML = speedmed.toFixed(1);
+                  var ospd = parseFloat(maxspd.innerHTML);
+                  if(parseFloat(spd[1]) > ospd) {
+                      maxspd.innerHTML=parseFloat(spd[1]);
+                  }
+                  x.innerHTML = parseFloat(spd[1])+"("+medspeed+")";
+                    updatePos(position);
+                // }
+                // else {
+                //   debug.innerHTML ="not enough accuracy ("+accurac+") or too low speed ("+spd[1]+")\n";
+                // }
+         //}
+        }
+      </script>
+      
+   </body>
+</html>
