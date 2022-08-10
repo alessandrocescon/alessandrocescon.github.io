@@ -59,7 +59,7 @@ a {
 <script>
 var pages = {
   "pages": [
-    { "menu":"Home", "title":"home page", "folder":"content", "url":"index.html" },
+    { "menu":"Home", "title":"home page", "folder":"", "url":"index.html" },
     { "menu":"Per iniziare", "title":"considerazioni iniziali sul sito", "folder":"content", "url":"contenuto.html" },
     { "menu":"Art1", "title":"articolo numero 1", "folder":"content", "url":"articolo-uno.html" },
     { "menu":"Art2", "title":"articolo numero 2", "folder":"content", "url":"articolo-due.html" },
@@ -276,7 +276,7 @@ function createmenu() {
         if(pages.pages[i].folder != "") {
           folder = "/"+pages.pages[i].folder;
         }
-        menu+="<li><a href='"+folder+"/"+pages.pages[i].url+"' title='"+pages.pages[i].title+"'>"+pages.pages[i].menu+"</a></li>";
+        menu+="<li><a href='"+folder+"/"+pages.pages[i].url+"' title='"+pages.pages[i].title+"' onclick="loadMe">"+pages.pages[i].menu+"</a></li>";
       }
     menu+="</ul>";
     document.getElementById("menu").innerHTML=menu;
@@ -289,6 +289,29 @@ function pop() {
   createmenu();
   poptext();
 }
+function loadme() {
+  if(event) {
+    eventpreventDefault();
+  }
+  var reqcont = event.target.href;
+  var tit= event.target.href.replace(".html", "");
+  tit= tit.replace("/", "");
+  tit= tit.replace("-", " ");
+  tit= tit.replace("_", " ");
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+         document.title = tit;
+         document.getElementById("cont").innerHTML=xhttp.responseText;
+      }
+      else {
+        document.getElementById("cont").innerHTML="Error, document not available.";
+      }
+  };
+  xhttp.open("GET", reqcont, true);
+  xhttp.send();
+}
+
 
 function makeid(length) {
    var result           = '';
