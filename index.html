@@ -304,9 +304,12 @@ function loadme() {
       if (this.readyState == 4 && this.status == 200) {
          document.title = tit;
          document.getElementById("cont").innerHTML=xhttp.responseText;
+         console.log(xhttp.responseText);
+         togglemenu();
       }
       else {
         document.getElementById("cont").innerHTML="Error, document not available.";
+        togglemenu();
       }
   };
   xhttp.open("GET", reqcont, true);
