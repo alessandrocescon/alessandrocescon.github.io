@@ -64,10 +64,7 @@ var pages = {
     { "menu":"Art1", "title":"articolo numero 1", "folder":"content", "url":"articolo-uno.html" },
     { "menu":"Art2", "title":"articolo numero 2", "folder":"content", "url":"articolo-due.html" },
     { "menu":"T-Shirt Ciao Mondo", "title":"T-Shirt Ciao Mondo", "folder":"content/t-shirt-ciao-mondo", "url":"t-shirt-ciao-mondo.html" },
-    { "menu":"Geotest", "title":"Test Javascript Geolocation", "folder":"content", "url":"tracker.html" },
-    { "menu":"Camera", "title":"Test Javascript camera", "folder":"content", "url":"camera.html" },
-    { "menu":"GE Usati", "title":"Lista di gruppi elettrogeni usati Onis Visa", "folder":"content", "url":"gruppi_elettrogeni_usati.html" },
-    { "menu":"Barcode Scanner", "title":"Scanner di barcode on line", "folder":"content", "url":"barcode_scanner.html" }
+    { "menu":"Demo", "title":"Test Javascript Dyamic load dmeo", "folder":"content", "url":"demo.html" }
   ]
 }
 function debug() {
@@ -97,7 +94,7 @@ function rw(elw) {
   }
 }
 
-function pdc_responsive() {
+function responsive() {
   var win = window,
     doc = document,
     docElem = doc.documentElement,
@@ -123,139 +120,6 @@ function pdc_responsive() {
       respconts[i].style.width = "100%";
     }
   }
-}
-
-function capture() {
-   var video = document.querySelector("#videoElement");
-   var canvas = document.getElementById('canvas');  
-   canvas.width=window.vidwidth;
-   canvas.height=window.vidheight;
-   var context = canvas.getContext('2d');   
-   context.drawImage(video, 0, 0);  
-   pdc_responsive();
-}
-
-function getvideo() {
-var video = document.querySelector("#videoElement");
-
-if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-      video.srcObject = stream;
-      window.vidwidth=stream.getTracks()[0].getSettings().width;
-      window.vidheight=stream.getTracks()[0].getSettings().height;
-      window.ratio=stream.getTracks()[0].getSettings().aspectRatio;
-      video.width=window.vidwidth;
-      video.height=window.vidheight;
-
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
-pdc_responsive();
-}
-
-
-
-function getLocation() {
-  var x = document.getElementById("demo");
-  if (navigator.geolocation) {
-  var options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-  };
-    navigator.geolocation.watchPosition(calcPosition,showError,options);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-function calcPosition(position) {
-  var x = document.getElementById("demo");
-  var timenow = parseInt(new Date().getTime()/1000);
-  if(window.oldla && window.oldlo && window.oldtime) {
-     //calcoli
-     var dist=distance(window.oldla,window.oldlo,position.coords.latitude,position.coords.longitude);
-     var timen = parseInt(timenow) - parseInt(window.oldtime);
-     var spd = speed(dist,timen);
-     //if(isNan(spd)){  
-     //}
-     //else {
-       //to do if speed is ok
-    // }
-     //set new old val
-     window.oldla=position.coords.latitude;
-     window.oldlo=position.coords.longitude;
-     window.oldtime=timenow;
-     //x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Time sec: "+timenow+ "<br>Distance m: "+dist+ "<br>Speed m/s: "+spd;
-     x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude+ "<br>Distance m: "+dist+ "<br>Time sec: "+timenow+ "<br>Speed m/s: "+spd;
-  }
-  else {
-     window.oldla=position.coords.latitude;
-     window.oldlo=position.coords.longitude;
-     window.oldtime=timenow;    
-  }
-}
-function speed(dist, time) {
-  var sped=parseFloat(dist)/parseFloat(time);
-  return sped;
-}
-function distance(lat1, lon1, lat2, lon2) {
-
-      var radlat1 = Math.PI * lat1/180;
-      var radlat2 = Math.PI * lat2/180;
-      var theta = lon1-lon2;
-      var radtheta = Math.PI * theta/180;
-      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = Math.acos(dist);
-      dist = dist * 180/Math.PI;
-      dist = dist * 60 * 1.1515;
-      dist = dist * 1609.344;
-      return dist;
-}
-function showError(error) {
-  var x = document.getElementById("demo");
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
-      break;
-    case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
-      break;
-    case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
-      break;
-    case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
-      break;
-  }
-}
-function loadusati(elem) {
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
-  xhr.open('GET', "/public/second-hand-single.json", true);
-  xhr.onload = function () {
-    if (this.readyState == 4 && this.status == 200) {
-        var elems = this.response;
-        for (i = 0; i < elems.length; i++) { 
-           var shlink="<a href='https://www.visa.it/it/shpdf/"+elems[i].nid+"' title='"+elems[i].title+"' target='_blank'>"+elems[i].title+"</a>"; 
-           var sh="<div clas='dlfitm' style='width:"+rw(20)+";display:inline-block;'><a href='https://www.visa.it/it/shpdf/"+elems[i].nid+"' title='"+elems[i].title+"' target='_blank'>"+elems[i].title+"</a>"+decodeURIComponent(elems[i].field_second_hand_image)+"</div>"; 
-           document.getElementById(elem).insertAdjacentHTML('beforeEnd', sh); 
-        }     
-    }
-    else {
-      alert("Errore di lettura, riprova.");
-      return;
-    }
-  }
-  xhr.onerror = function () {
-    alert("Abbiamo riscontrato problemi di rete. Ricarica la pagina o contatta l'amministratore del portale. Grazie.");
-  };
-  xhr.send();
 }
 function togglemenu() {
   var state = document.getElementById("toggler").innerText;
@@ -290,7 +154,7 @@ function poptext() {
   document.getElementById("footer").innerHTML="Copyright &copy; 2020 Alessandro Cescon info@eyefly.it";
 }
 function pop() {
-  loadpage();
+  loadstartpage();
   createmenu();
   poptext();
 }
@@ -308,6 +172,7 @@ function loadme() {
       if (this.readyState == 4 && this.status == 200) {
          document.title = tit;
          document.getElementById("cont").innerHTML=xhttp.responseText;
+         main();
          console.log(xhttp.responseText);
          closemenu();
       }
@@ -319,88 +184,7 @@ function loadme() {
   xhttp.open("GET", reqcont, true);
   xhttp.send();
 }
-
-
-function makeid(length) {
-   var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-   var charactersLength = characters.length;
-   for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
-}
-
-function MakeQuerablePromise(promise) {
-    // Don't modify any promise that has been already modified.
-    if (promise.isResolved) return promise;
-
-    // Set initial state
-    var isPending = true;
-    var isRejected = false;
-    var isFulfilled = false;
-
-    // Observe the promise, saving the fulfillment in a closure scope.
-    var result = promise.then(
-        function(v) {
-            isFulfilled = true;
-            isPending = false;
-            return v; 
-        }, 
-        function(e) {
-            isRejected = true;
-            isPending = false;
-            throw e; 
-        }
-    );
-
-    result.isFulfilled = function() { return isFulfilled; };
-    result.isPending = function() { return isPending; };
-    result.isRejected = function() { return isRejected; };
-    return result;
-}
-
-function recoverbutton() {
-  setTimeout(function(){ document.getElementById("scanbtn").style.backgroundColor = "#fee12b"; }, 1000);
-}
-
-function barcodecapture() {
-   document.getElementById("scanbtn").style.backgroundColor = "#efefef";
-   document.getElementById("result").innerHTML="scanning...";
-   var video = document.querySelector("#video");
-   var captw= video.videoWidth;
-   //var capth= video.videoHeight;
-   var capth= 100;
-   var canvas = document.getElementById('barcodecanvas');  
-   canvas.width=captw;
-   canvas.height=capth;
-   var context = canvas.getContext('2d');   
-   context.drawImage(video,0,0,captw,capth,0,0,captw,capth);  
-   var dynImg = new Image();
-   dynImg.src = canvas.toDataURL("image/png");
-   
-   var rid=makeid(5);
-   dynImg.id=rid;
-   //document.body.appendChild(dynImg);
-   const codeReader = new ZXing.BrowserBarcodeReader();
-   var scanres = codeReader.decodeFromImageElement(dynImg).then(data => {
-
-      document.getElementById("result").innerHTML=data.text;
-      document.getElementById("result").style.backgroundColor = "#00b200";
-      document.getElementById("scanbtn").style.backgroundColor = "#efefef";
-      recoverbutton();
-
-   })
-   .catch((err) => {
-       document.getElementById("result").innerHTML="no result...retry";
-       document.getElementById("result").style.backgroundColor = "#efefef";
-       document.getElementById("scanbtn").style.backgroundColor = "#ca2f2f";
-       recoverbutton();
-   }) 
-   
-}
-
-function loadpage() {
+function loadstartpage() {
   var reqcont = window.location.protocol+"//"+window.location.hostname+"/content"+window.location.pathname;
   reqcont = reqcont.replace(".html", ".htm");
   var tit= window.location.pathname.replace(".html", "");
@@ -423,50 +207,9 @@ function loadpage() {
 }
 window.addEventListener('load', pop);
 
-
-function playscan() {
-  var supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
-  console.log(supportedConstraints);
-   //var constraints = { audio: false, video: { width: 640, height: 480 ,facingMode:"environment"}}; 
-   //var constraints = { audio: false, video: { width: 9999, facingMode:"environment",playsinline:true}}; 
-   var constraints = { audio: false, video: { width: 640, facingMode:"environment",playsinline:true}};
-   navigator.mediaDevices.getUserMedia(constraints)
-     .then(function(mediaStream) {
-        var video = document.querySelector('#video');
-        video.setAttribute("playsinline", true);
-        video.srcObject = mediaStream;
-        video.onloadedmetadata = function(e) {
-          document.getElementById("scanbtn").style.backgroundColor = "#fee12b";
-          video.play();
-          document.getElementById("result").style.top = "2.4em";
-          document.getElementById("result").style.width = document.getElementById("video").offsetWidth+"px";
-          document.getElementById("result").style.display = "block";
-        };
-    })
-}
-
-function loadscanner() {
-  var script = document.createElement('script');
-    script.onload = function () {
-      playscan();            
-    };
-    script.src = "https://alessandrocescon.github.io/public/barcodereader.js";
-    document.head.appendChild(script);
-}
-
 function main() {
-  if(document.getElementById('listagruppielettrogeni')) {
-    loadusati('listagruppielettrogeni');
-    //debug();
-  }
   if(document.getElementById('demo')) {
-    getLocation();
-  }
-  if(document.getElementById('videoElement')) {
-    getvideo();
-  }
-  if(document.getElementById('video')) {
-    loadscanner();
+    getDemo();
   }
 }
 </script>
