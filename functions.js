@@ -1,6 +1,3 @@
-function getDemo() {
-    document.getElementById("demo").innerHTML="Dynamic text demo";
-}
 function rw(elw) {
   var win = window,
   doc = document,
@@ -145,11 +142,6 @@ function loadstartpage() {
       xhttp.send();
   }
 }
-function main() {
-  if(document.getElementById('demo')) {
-    getDemo();
-  }
-}
 function popmeta() {
     var title= "Home page title";
     var description = "Home page description";
@@ -164,4 +156,12 @@ function popmeta() {
     document.title = title;
     document.description = description;
     window.history.replaceState({}, document.title, "/");
+}
+function main() {
+  if(document.getElementById('demo')) {
+    getDemo();
+  }
+}
+function getDemo() {
+    document.getElementById("demo").innerHTML="Dynamic text demo";
 }
