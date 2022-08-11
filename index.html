@@ -186,9 +186,6 @@ function loadme() {
 function loadstartpage() {
   var reqcont = window.location.protocol+"//"+window.location.hostname+"/index.html";
   window.location.pathname.replace(".html", "");
-  tit= tit.replace("/", "");
-  tit= tit.replace("-", " ");
-  tit= tit.replace("_", " ");
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
