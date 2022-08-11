@@ -90,12 +90,12 @@ function pop() {
   createmenu();
   poptext();
 }
-function loadme(dest=NULL) {
+function loadme(dest=0) {
   if(event) {
     event.preventDefault();
   }
   var reqcont = event.target.href;
-  if(dest) {
+  if(dest != 0) {
      reqcont = dest;
   }
   const url = new URL(reqcont);
@@ -125,6 +125,7 @@ function loadstartpage() {
   if(params.has('dest')) {
       var reqcont = window.location.protocol+"//"+window.location.hostname+decodeURI(params.get('dest'));
       loadme(reqcont);
+      console.log(reqcont);
   }
   else {
       var reqcont = window.location.protocol+"//"+window.location.hostname+"/content/home.html";
