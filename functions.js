@@ -104,6 +104,7 @@ function loadme() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
          document.title = tit;
+         popmeta();
          document.getElementById("cont").innerHTML=xhttp.responseText;
          main();
          console.log(xhttp.responseText);
@@ -123,6 +124,7 @@ function loadstartpage() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
          document.title = "hometest";
+         popmeta();
          document.getElementById("cont").innerHTML=xhttp.responseText;
          main();
       }
@@ -137,4 +139,16 @@ function main() {
   if(document.getElementById('demo')) {
     getDemo();
   }
+}
+function popmeta() {
+    var title= "Home page title";
+    var description = "Home page description";
+    if(document.getElementById("title")) {
+        title= document.getElementById("title").innerHTML;     
+    }
+    if(document.getElementById("description")) {
+        description= document.getElementById("description").innerHTML;     
+    }
+    document.title = title;
+    document.description = description;
 }
