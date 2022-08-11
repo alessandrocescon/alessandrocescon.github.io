@@ -161,7 +161,7 @@ function popmeta() {
     }
     console.log(title);
     console.log(description);
-
     document.title = title;
     document.description = description;
+    window.history.replaceState({}, document.title, "/");
 }
