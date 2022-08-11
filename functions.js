@@ -106,7 +106,7 @@ function loadme(dest=0) {
          document.getElementById("cont").innerHTML=xhttp.responseText;
          popmeta();
          main();
-         console.log(xhttp.responseText);
+         //console.log(xhttp.responseText);
          closemenu();
       }
       else {
@@ -122,7 +122,7 @@ function loadstartpage() {
   if(params.has('dest')) {
       var reqcont = window.location.protocol+"//"+window.location.hostname+decodeURI(params.get('dest'));
       loadme(reqcont);
-      console.log(reqcont);
+      //console.log(reqcont);
   }
   else {
       var reqcont = window.location.protocol+"//"+window.location.hostname+"/content/home.html";
@@ -151,8 +151,8 @@ function popmeta() {
     if(document.getElementById("description")) {
         description = document.getElementById("description").innerHTML;     
     }
-    console.log(title);
-    console.log(description);
+    //console.log(title);
+    //console.log(description);
     document.title = title;
     document.description = description;
     window.history.replaceState({}, document.title, "/");
