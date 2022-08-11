@@ -95,7 +95,8 @@ function loadme() {
     event.preventDefault();
   }
   var reqcont = event.target.href;
-  var tit= event.target.href.replace(".html", "");
+  const url = new URL(reqcont);
+  var tit=  url.pathname.replace(".html", "");
   tit= tit.replace("/", "");
   tit= tit.replace("-", " ");
   tit= tit.replace("_", " ");
