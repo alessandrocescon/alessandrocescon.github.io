@@ -124,7 +124,7 @@ function loadme(dest=NULL) {
 function loadstartpage() {
   const params = new URLSearchParams(window.location.search);
   if(params.has('dest')) {
-      var reqcont = window.location.protocol+"//"+window.location.hostname+"/"+decodeURI(params.get('dest'));
+      var reqcont = window.location.protocol+"//"+window.location.hostname+decodeURI(params.get('dest'));
       loadme(reqcont);
   }
   else {
@@ -154,11 +154,14 @@ function popmeta() {
     var title= "Home page title";
     var description = "Home page description";
     if(document.getElementById("title")) {
-        title= document.getElementById("title").innerHTML;     
+        title = document.getElementById("title").innerHTML;     
     }
     if(document.getElementById("description")) {
-        description= document.getElementById("description").innerHTML;     
+        description = document.getElementById("description").innerHTML;     
     }
+    console.log(title);
+    console.log(description);
+
     document.title = title;
     document.description = description;
 }
