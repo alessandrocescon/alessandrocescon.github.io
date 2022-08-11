@@ -91,11 +91,14 @@ function pop() {
   createmenu();
   poptext();
 }
-function loadme() {
+function loadme(dest=NULL) {
   if(event) {
     event.preventDefault();
   }
   var reqcont = event.target.href;
+  if(dest) {
+     reqcont = dest;
+  }
   const url = new URL(reqcont);
   var tit=  url.pathname.replace(".html", "");
   tit= tit.replace("/", "");
@@ -119,21 +122,28 @@ function loadme() {
   xhttp.send();
 }
 function loadstartpage() {
-  var reqcont = window.location.protocol+"//"+window.location.hostname+"/content/home.html";
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-         document.title = "hometest";
-         document.getElementById("cont").innerHTML=xhttp.responseText;
-         popmeta();
-         main();
-      }
-      else {
-        document.getElementById("cont").innerHTML="Error, document not available.";
-      }
-  };
-  xhttp.open("GET", reqcont, true);
-  xhttp.send();
+  const params = new URLSearchParams(window.location.search);
+  if(params.has('dest')) {
+      var reqcont = window.location.protocol+"//"+window.location.hostname."/"+decodeURI(params.get('dest'));
+      loadme(reqcont);
+  }
+  else {
+      var reqcont = window.location.protocol+"//"+window.location.hostname+"/content/home.html";
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+             document.title = "hometest";
+             document.getElementById("cont").innerHTML=xhttp.responseText;
+             popmeta();
+             main();
+          }
+          else {
+            document.getElementById("cont").innerHTML="Error, document not available.";
+          }
+      };
+      xhttp.open("GET", reqcont, true);
+      xhttp.send();
+  }
 }
 function main() {
   if(document.getElementById('demo')) {
