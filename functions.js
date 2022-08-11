@@ -86,7 +86,6 @@ function poptext() {
   document.getElementById("footer").innerHTML="Copyright &copy; 2020 Alessandro Cescon info@eyefly.it";
 }
 function pop() {
-  window.ismanager=true;
   loadstartpage();
   createmenu();
   poptext();
