@@ -124,7 +124,7 @@ function loadme(dest=NULL) {
 function loadstartpage() {
   const params = new URLSearchParams(window.location.search);
   if(params.has('dest')) {
-      var reqcont = window.location.protocol+"//"+window.location.hostname."/"+decodeURI(params.get('dest'));
+      var reqcont = window.location.protocol+"//"+window.location.hostname+"/"+decodeURI(params.get('dest'));
       loadme(reqcont);
   }
   else {
