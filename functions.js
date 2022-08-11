@@ -86,6 +86,7 @@ function poptext() {
   document.getElementById("footer").innerHTML="Copyright &copy; 2020 Alessandro Cescon info@eyefly.it";
 }
 function pop() {
+  window.ismanager=true;
   loadstartpage();
   createmenu();
   poptext();
@@ -103,9 +104,8 @@ function loadme() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-         document.title = tit;
-         popmeta();
          document.getElementById("cont").innerHTML=xhttp.responseText;
+         popmeta();
          main();
          console.log(xhttp.responseText);
          closemenu();
@@ -124,8 +124,8 @@ function loadstartpage() {
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
          document.title = "hometest";
-         popmeta();
          document.getElementById("cont").innerHTML=xhttp.responseText;
+         popmeta();
          main();
       }
       else {
