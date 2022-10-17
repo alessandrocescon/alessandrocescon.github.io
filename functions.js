@@ -161,7 +161,32 @@ function main() {
   if(document.getElementById('demo')) {
     getDemo();
   }
+  if(document.getElementById('webworker')) {
+    startWorker();
+  }
 }
 function getDemo() {
     document.getElementById("demo").innerHTML="Dynamic text demo";
+}
+
+
+
+var w;
+function startWorker() {
+
+  if(typeof(Worker) !== "undefined") {
+    if(typeof(w) == "undefined") {
+      w = new Worker("https://alessandrocescon.github.io/content/demo_workers.js");
+    }
+    w.onmessage = function(event) {
+      document.getElementById("result").innerHTML = event.data;
+    };
+  } else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+  }
+}
+
+function stopWorker() { 
+  w.terminate();
+  w = undefined;
 }
