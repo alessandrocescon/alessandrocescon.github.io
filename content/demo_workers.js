@@ -15,9 +15,7 @@
                console.log("Error: Position is unavailable!");
             }
          }
-         
-         function getLocationUpdate(){
-            
+                     
             if(navigator.geolocation){
                
                // timeout at 60000 milliseconds (60 seconds)
@@ -27,4 +25,3 @@
             } else {
                console.log("Sorry, browser does not support geolocation!");
             }
-         }
