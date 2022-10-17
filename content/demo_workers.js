@@ -10,9 +10,9 @@
          
          function errorHandler(err) {
             if(err.code == 1) {
-               alert("Error: Access is denied!");
+               postMessage("Error: Access is denied!");
             } else if( err.code == 2) {
-               alert("Error: Position is unavailable!");
+               postMessage("Error: Position is unavailable!");
             }
          }
                      
@@ -23,5 +23,5 @@
                geoLoc = navigator.geolocation;
                watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
             } else {
-               alert("Sorry, browser does not support geolocation!");
+               postMessage("Sorry, browser does not support geolocation!");
             }
