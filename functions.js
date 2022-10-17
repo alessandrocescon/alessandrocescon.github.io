@@ -170,10 +170,8 @@ function getDemo() {
 }
 
 
-
 var w;
 function startWorker() {
-
   if(typeof(Worker) !== "undefined") {
     if(typeof(w) == "undefined") {
       w = new Worker("https://alessandrocescon.github.io/content/demo_workers.js");
