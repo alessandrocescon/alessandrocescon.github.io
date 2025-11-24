@@ -5,7 +5,7 @@ const App = () => {
   const [resetKey, setResetKey] = React.useState(0);
 
   React.useEffect(() => {
-    fetch('https://mensa.visa.it/secondhand.json')
+    fetch('https://alessandrocescon.github.io/secondhand.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Errore nel caricamento dei dati');
@@ -36,7 +36,7 @@ const App = () => {
   const sendAllData = () => {
     console.log('Dati completi da inviare:', items);
     // Qui puoi fare una fetch per inviare tutti i dati
-    fetch('https://mensa.visa.it/updateall.php', {
+    fetch('https://alessandrocescon.github.io/updateall.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -141,4 +141,5 @@ const resetAllYears = () => {
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
+
 root.render(React.createElement(App));
