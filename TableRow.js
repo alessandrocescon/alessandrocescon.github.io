@@ -26,7 +26,7 @@ const TableRow = ({ item, onUpdate }) => {
       field_second_hand_code: item.field_second_hand_code
     };
 
-    fetch('https://mensa.visa.it/updateitem.php', {
+    fetch('https://alessandrocescon.github.io/updateitem.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -99,4 +99,5 @@ const TableRow = ({ item, onUpdate }) => {
     React.createElement("td", { style: { padding: "8px" } }, item.Hour),
     React.createElement("td", { style: { padding: "8px" } }, item.field_second_hand_code)
   );
+
 };
